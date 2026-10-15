@@ -8,6 +8,10 @@ import {
 import AdminInicio from "./pages/admin/AdminInicio";
 import AdminProductos from "./pages/admin/AdminProductos";
 import AdminVerProducto from "./pages/admin/AdminVerProducto";
+import AdminEditarProducto from "./pages/admin/AdminEditarProducto";
+import AdminUsuarios from "./pages/admin/AdminUsuarios";
+import AdminEditarUsuario from "./pages/admin/AdminEditarUsuario";
+import AdminVerUsuario from "./pages/admin/AdminVerUsuario";
 
 function App() {
     return (
@@ -32,6 +36,37 @@ function App() {
                     path="/admin/productos/ver/:id"
                     element={<AdminVerProducto />}
                 />
+
+                <Route
+                    path="/admin/productos/editar"
+                    element={<AdminEditarProducto />}
+                />
+
+                <Route
+                    path="/admin/productos/editar/:id"
+                    element={<AdminEditarProducto />}
+                />
+
+                <Route
+                    path="/admin/usuarios"
+                    element={<AdminUsuarios />}
+                />
+
+                <Route
+                    path="/admin/usuarios/editar"
+                    element={<AdminEditarUsuario />}
+                />
+
+                <Route
+                    path="/admin/usuarios/editar/:id"
+                    element={<AdminEditarUsuario />}
+                />
+
+                <Route
+                    path="/admin/usuarios/ver/:id"
+                    element={<AdminVerUsuario />}
+                />
+                
             </Routes>
         </BrowserRouter>
     );
