@@ -53,15 +53,17 @@ function Blogs() {
           <div className="container">
             <div className="section-title">
               <span>Blog</span>
-              <h2>⭐ novedades ⭐</h2>
+              <h2>⭐ Novedades ⭐</h2>
             </div>
 
             {/* Primera noticia */}
             <div className="bloque">
-              <div className="texto-centrado">
-                <h3 className="mb-4">
-                  estrenamos nueva tecnologia de estampados y bordados
-                </h3>
+                <div className="texto-centrado">
+                    <h3 className="mb-4">
+                        <h3 className="mb-4">
+                            ✨ Estrenamos nueva tecnología de estampados y bordados
+                        </h3>
+                    </h3>
                 <p>
                   nuestro compromiso siempre ha sido entregar prendas
                   que no solo se vean bien el primer día, sino que

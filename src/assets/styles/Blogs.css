@@ -3,33 +3,39 @@
 
 .pagina-blogs {
   font-family: "Nunito Sans", sans-serif;
-  color: #111111;
+  color: #30213f;
+  background: linear-gradient(135deg, #f5e7ff, #fce5f2);
 }
 
+/* Cabecera */
 .pagina-blogs.breadcrumb-option {
-  background: #f3f2ee;
-  padding: 40px 0;
+  background: linear-gradient(135deg, #f7e8ff, #fce7f3);
+  padding: 45px 0;
 }
 
 .pagina-blogs .breadcrumb__text h1 {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #42245c;
+  margin-bottom: 10px;
 }
 
 .pagina-blogs .breadcrumb__links a {
-  color: #111111;
+  color: #8736a8;
   margin-right: 18px;
 }
 
 .pagina-blogs .breadcrumb__links span {
-  color: #b7b7b7;
+  color: #65536e;
 }
 
+/* Espaciado de secciones */
 .pagina-blogs .spad {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 85px;
+  padding-bottom: 85px;
 }
 
+/* Títulos */
 .pagina-blogs .section-title {
   text-align: center;
   margin-bottom: 40px;
@@ -37,9 +43,9 @@
 
 .pagina-blogs .section-title span {
   display: block;
-  color: #e53637;
+  color: #8736a8;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 15px;
@@ -47,11 +53,26 @@
 
 .pagina-blogs .section-title h2 {
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #42245c;
+}
+
+/* Noticias principales */
+.pagina-blogs .bloque {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #ecd6f5;
+  border-radius: 20px;
+  padding: 45px 35px;
+  box-shadow: 0 8px 25px rgba(120, 65, 160, 0.09);
+  transition: box-shadow 0.3s ease;
+}
+
+.pagina-blogs .bloque:hover {
+  box-shadow: 0 12px 30px rgba(145, 85, 180, 0.16);
 }
 
 .pagina-blogs .bloque + .bloque {
-  margin-top: 80px;
+  margin-top: 40px;
 }
 
 .pagina-blogs .texto-centrado {
@@ -62,42 +83,75 @@
 
 .pagina-blogs .texto-centrado h3 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #542a70;
+  margin-bottom: 22px;
 }
 
 .pagina-blogs .texto-centrado p {
   font-size: 16px;
-  line-height: 28px;
-  color: #3d3d3d;
+  line-height: 30px;
+  color: #35283f;
 }
 
+/* Tarjetas de novedades */
 .pagina-blogs .noticia-item {
   height: 100%;
-  background: #f3f2ee;
+  background: #fffafd;
   padding: 40px 30px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 18px;
+  border: 1px solid #ecd6f5;
+  box-shadow: 0 5px 18px rgba(120, 65, 160, 0.08);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .pagina-blogs .noticia-item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 12px 28px rgba(153, 82, 181, 0.18);
+  border-color: #dca4e9;
 }
 
 .pagina-blogs .noticia-item h4 {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 800;
+  color: #542a70;
   margin-bottom: 15px;
 }
 
 .pagina-blogs .noticia-item p {
-  color: #3d3d3d;
+  color: #403349;
   line-height: 26px;
 }
 
+/* Adaptación para celulares */
 @media (max-width: 767px) {
   .pagina-blogs .spad {
     padding-top: 55px;
     padding-bottom: 55px;
   }
+
+  .pagina-blogs .section-title h2 {
+    font-size: 28px;
+  }
+
+  .pagina-blogs .bloque {
+    padding: 30px 20px;
+  }
+
+  .pagina-blogs .texto-centrado h3 {
+    font-size: 21px;
+  }
+
+  .pagina-blogs .noticia-item {
+    padding: 30px 20px;
+  }
+}
+.pagina-blogs .texto-centrado p {
+  font-size: 17px;
+  line-height: 32px;
 }
