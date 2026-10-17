@@ -1,0 +1,126 @@
+
+/* Página Contacto */
+
+.contact {
+  padding: 90px 0;
+  background-color: #ffffff;
+}
+
+.contact__box {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #f3f2ee;
+  border-radius: 8px;
+}
+
+/* Título */
+
+.contact .section-title {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.contact .section-title span {
+  color: #e53637;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.contact .section-title h2 {
+  color: #111111;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* Campos del formulario */
+
+.contact__form .row > div {
+  margin-bottom: 22px;
+}
+
+.contact__form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.contact__form input:not([type="file"]),
+.contact__form textarea {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.contact__form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: none;
+  border-color: #e53637;
+}
+
+/* Subir archivo */
+
+.contact__form input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+/* Botón Enviar */
+
+.contact__form .site-btn {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 15px 45px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact__form .site-btn:hover {
+  background-color: #e53637;
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 45px 0;
+  }
+
+  .contact__box {
+    padding: 25px 20px;
+  }
+
+  .contact .section-title h2 {
+    font-size: 26px;
+  }
+
+  .contact__form .site-btn {
+    width: 100%;
+  }
+}

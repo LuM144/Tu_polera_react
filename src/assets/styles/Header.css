@@ -1,0 +1,109 @@
+
+/* HEADER - TU POLERA */
+
+.header {
+  background: #ffffff;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.header .header__top {
+  background: #111111;
+  padding: 12px 0;
+}
+
+.header .header__top__left p {
+  color: #ffffff;
+  font-size: 13px;
+  margin: 0;
+}
+
+.header .header__top__right {
+  text-align: right;
+}
+
+.header .header__top__links a {
+  color: #ffffff;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.header .header__logo {
+  padding: 25px 0;
+}
+
+.header .logo-text {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111111;
+  text-decoration: none;
+}
+
+.header .logo-text span {
+  color: #e53637;
+}
+
+.header .header__menu {
+  text-align: center;
+}
+
+.header .header__menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header .header__menu ul li {
+  display: inline-block;
+  margin: 0 12px;
+}
+
+.header .header__menu ul li a {
+  display: block;
+  padding: 30px 0;
+  color: #111111;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.header .header__menu ul li a:hover,
+.header .header__menu ul li a.active {
+  color: #e53637;
+}
+
+.header .header__nav__option {
+  text-align: right;
+  padding: 27px 0;
+}
+
+.header .header__nav__option img {
+  max-width: 22px;
+}
+
+/* Ocultar menú móvil en escritorio */
+.offcanvas-menu-overlay,
+.offcanvas-menu-wrapper,
+.header .canvas__open {
+  display: none;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 991px) {
+  .header .header__menu {
+    display: none;
+  }
+
+  .header .canvas__open {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .header .header__nav__option {
+    display: none;
+  }
+}

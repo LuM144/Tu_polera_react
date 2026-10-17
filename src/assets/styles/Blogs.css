@@ -1,0 +1,103 @@
+
+/* BLOGS - TU POLERA */
+
+.pagina-blogs {
+  font-family: "Nunito Sans", sans-serif;
+  color: #111111;
+}
+
+.pagina-blogs.breadcrumb-option {
+  background: #f3f2ee;
+  padding: 40px 0;
+}
+
+.pagina-blogs .breadcrumb__text h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.pagina-blogs .breadcrumb__links a {
+  color: #111111;
+  margin-right: 18px;
+}
+
+.pagina-blogs .breadcrumb__links span {
+  color: #b7b7b7;
+}
+
+.pagina-blogs .spad {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.pagina-blogs .section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pagina-blogs .section-title span {
+  display: block;
+  color: #e53637;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.pagina-blogs .section-title h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.pagina-blogs .bloque + .bloque {
+  margin-top: 80px;
+}
+
+.pagina-blogs .texto-centrado {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pagina-blogs .texto-centrado h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.pagina-blogs .texto-centrado p {
+  font-size: 16px;
+  line-height: 28px;
+  color: #3d3d3d;
+}
+
+.pagina-blogs .noticia-item {
+  height: 100%;
+  background: #f3f2ee;
+  padding: 40px 30px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.pagina-blogs .noticia-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.pagina-blogs .noticia-item h4 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.pagina-blogs .noticia-item p {
+  color: #3d3d3d;
+  line-height: 26px;
+}
+
+@media (max-width: 767px) {
+  .pagina-blogs .spad {
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+}
