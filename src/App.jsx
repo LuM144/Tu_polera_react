@@ -1,3 +1,4 @@
+
 import {
     BrowserRouter,
     Routes,
@@ -13,6 +14,12 @@ import AdminUsuarios from "./pages/admin/AdminUsuarios";
 import AdminEditarUsuario from "./pages/admin/AdminEditarUsuario";
 import AdminVerUsuario from "./pages/admin/AdminVerUsuario";
 
+import AdminProductosDestacados from "./pages/admin/AdminProductosDestacados";
+import AdminCategorias from "./pages/admin/AdminCategorias";
+import AdminBoletas from "./pages/admin/AdminBoletas";
+import AdminVerBoleta from "./pages/admin/AdminVerBoleta";
+import AdminReportes from "./pages/admin/AdminReportes";
+
 function App() {
     return (
         <BrowserRouter>
@@ -27,6 +34,7 @@ function App() {
                     element={<AdminInicio />}
                 />
 
+                {/* Productos */}
                 <Route
                     path="/admin/productos"
                     element={<AdminProductos />}
@@ -47,6 +55,7 @@ function App() {
                     element={<AdminEditarProducto />}
                 />
 
+                {/* Usuarios */}
                 <Route
                     path="/admin/usuarios"
                     element={<AdminUsuarios />}
@@ -66,7 +75,32 @@ function App() {
                     path="/admin/usuarios/ver/:id"
                     element={<AdminVerUsuario />}
                 />
-                
+
+
+                <Route
+                    path="/admin/productos-destacados"
+                    element={<AdminProductosDestacados />}
+                />
+
+                <Route
+                    path="/admin/categorias"
+                    element={<AdminCategorias />}
+                />
+
+                <Route 
+                    path="/admin/boletas" 
+                    element={<AdminBoletas />} 
+                />
+
+                <Route
+                    path="/admin/boletas/ver/:id"
+                    element={<AdminVerBoleta />}
+                />
+
+                <Route
+                    path="/admin/reportes"
+                    element={<AdminReportes />}
+                />
             </Routes>
         </BrowserRouter>
     );
