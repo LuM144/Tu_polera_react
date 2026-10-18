@@ -155,3 +155,49 @@
   font-size: 17px;
   line-height: 32px;
 }
+.pagina-blogs .noticia-imagen {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 22px;
+  transition: transform 0.3s ease;
+}
+
+.pagina-blogs .noticia-item:hover .noticia-imagen {
+  transform: scale(1.03);
+}
+/* TÍTULO DE LA NUEVA COLECCIÓN */
+
+.pagina-blogs .titulo-coleccion {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.pagina-blogs .titulo-coleccion span {
+  display: block;
+  color: #8736a8;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.pagina-blogs .titulo-coleccion h2 {
+  color: #42245c;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.pagina-blogs .titulo-coleccion p {
+  color: #51415c;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 767px) {
+  .pagina-blogs .titulo-coleccion h2 {
+    font-size: 25px;
+  }
+}

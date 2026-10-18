@@ -3,24 +3,30 @@ import Header from "../../components/tienda/Header.jsx";
 import Footer from "../../components/tienda/Footer.jsx";
 import { Link } from "react-router-dom";
 import "../../assets/styles/Blogs.css";
+import imagen1 from"../../assets/images/gorras-estampadas.png";
+import imagen2 from"../../assets/images/poleron-estam-rosa.png";
+import imagen3 from"../../assets/images/paleta-colores.png";
 
 // Arreglo con las novedades de la tienda
 const novedades = [
   {
     id: 1,
     titulo: "polerones oversize",
+    imagen:imagen2,
     descripcion:
       "Un corte moderno, cómodo y de franela gruesa, ideal para la temporada.",
   },
   {
     id: 2,
     titulo: "Nuevos estilos de Gorras",
+    imagen:imagen1,
     descripcion:
       "Incorporamos modelos tipo Trucker y Dad Hats con viseras de alta calidad, perfectas para bordados frontales.",
   },
   {
     id: 3,
     titulo: "Paleta de colores de temporada",
+    imagen:imagen3,
     descripcion:
       "Añadimos tonos neutros, pasteles y colores de alto contraste en nuestras poleras de algodón 100%.",
   },
@@ -105,13 +111,26 @@ function Blogs() {
         {/* Tarjetas de novedades */}
         <section className="spad">
           <div className="container">
+            <div className="titulo-coleccion">
+            <span>Lo Nuevo En Tu Polera</span>
+            <h2>✨ Descubre nuestra nueva colección ✨</h2>
+            <p>
+              Nuevos estilos colores y prendas para expresar tu personalidad
+            </p>
+            </div>
             <div className="row g-4">
               {novedades.map((novedad) => (
                 <div
                   className="col-lg-4 col-md-6"
-                  key={novedad.id}
-                >
+                  key={novedad.id}>
                   <div className="noticia-item">
+                    {novedad.imagen &&(
+                      <img
+                      src={novedad.imagen}
+                      alt={novedad.titulo}
+                      className="noticia-imagen"
+                      />
+                    )}
                     <h4>{novedad.titulo}</h4>
                     <p>{novedad.descripcion}</p>
                   </div>
