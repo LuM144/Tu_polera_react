@@ -1,5 +1,6 @@
 // src/components/Footer.jsx
 import { Link } from 'react-router-dom';
+import "../../assets/styles/Footer.css";
 
 export default function Footer() {
   return (

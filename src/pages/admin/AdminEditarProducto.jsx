@@ -4,40 +4,20 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { productosIniciales } from "../../data/productosIniciales";
 import { images } from "../../data/imagenes";
-import {
-    categoriasIniciales,
-    coloresIniciales
-} from "../../data/categoriasIniciales";
 
 function cargarProductos() {
     const productosGuardados = localStorage.getItem("productos");
 
-    if (productosGuardados !== null) {
+    if (productosGuardados) {
         return JSON.parse(productosGuardados);
     }
 
     return productosIniciales;
 }
 
-function cargarOpciones(clave, iniciales) {
-    const opcionesGuardadas = localStorage.getItem(clave);
-
-    if (opcionesGuardadas !== null) {
-        return JSON.parse(opcionesGuardadas);
-    }
-
-    localStorage.setItem(clave, JSON.stringify(iniciales));
-    return iniciales;
-}
-
 function obtenerImagen(rutaImagen) {
     if (!rutaImagen) {
-        return "";
-    }
-
-    // Las imágenes subidas se guardan como data URL.
-    if (rutaImagen.startsWith("data:image/")) {
-        return rutaImagen;
+        return images.placeholder;
     }
 
     const ruta = rutaImagen.toLowerCase();
@@ -90,14 +70,6 @@ function AdminEditarProducto() {
     const navigate = useNavigate();
 
     const [productos] = useState(cargarProductos);
-
-    const [categorias] = useState(
-        () => cargarOpciones("categorias", categoriasIniciales)
-    );
-
-    const [colores] = useState(
-        () => cargarOpciones("colores", coloresIniciales)
-    );
 
     const producto = id
         ? productos.find(function (productoActual) {
@@ -155,104 +127,6 @@ function AdminEditarProducto() {
         });
     }
 
-    function subirImagen(evento) {
-        const archivo = evento.target.files[0];
-
-        if (!archivo) {
-            return;
-        }
-
-        if (!archivo.type.startsWith("image/")) {
-            setError("Selecciona un archivo de imagen válido.");
-            evento.target.value = "";
-            return;
-        }
-
-        if (archivo.size > 8 * 1024 * 1024) {
-            setError("La imagen no puede superar los 8 MB.");
-            evento.target.value = "";
-            return;
-        }
-
-        setError("");
-
-        const urlTemporal = URL.createObjectURL(archivo);
-        const imagenTemporal = new Image();
-
-        imagenTemporal.onload = function () {
-            try {
-                const limite = 1000;
-
-                const escala = Math.min(
-                    1,
-                    limite / imagenTemporal.naturalWidth,
-                    limite / imagenTemporal.naturalHeight
-                );
-
-                const canvas = document.createElement("canvas");
-
-                canvas.width = Math.max(
-                    1,
-                    Math.round(imagenTemporal.naturalWidth * escala)
-                );
-
-                canvas.height = Math.max(
-                    1,
-                    Math.round(imagenTemporal.naturalHeight * escala)
-                );
-
-                const contexto = canvas.getContext("2d");
-
-                if (!contexto) {
-                    throw new Error("No se pudo procesar la imagen.");
-                }
-
-                contexto.drawImage(
-                    imagenTemporal,
-                    0,
-                    0,
-                    canvas.width,
-                    canvas.height
-                );
-
-                const imagenComprimida = canvas.toDataURL(
-                    "image/webp",
-                    0.75
-                );
-
-                setFormulario(function (formularioActual) {
-                    return {
-                        ...formularioActual,
-                        imagen: imagenComprimida
-                    };
-                });
-            } catch {
-                setError("No se pudo procesar la imagen seleccionada.");
-            } finally {
-                URL.revokeObjectURL(urlTemporal);
-            }
-        };
-
-        imagenTemporal.onerror = function () {
-            URL.revokeObjectURL(urlTemporal);
-            setError("No se pudo abrir la imagen seleccionada.");
-        };
-
-        imagenTemporal.src = urlTemporal;
-    }
-
-    function obtenerNuevoId() {
-        if (productos.length === 0) {
-            return 1;
-        }
-
-        return Math.max(
-            ...productos.map(function (productoActual) {
-                return Number(productoActual.id);
-            })
-        ) + 1;
-    }
-
     function guardarProducto(evento) {
         evento.preventDefault();
         setError("");
@@ -262,17 +136,12 @@ function AdminEditarProducto() {
             return;
         }
 
-        if (!formulario.imagen) {
-            setError("Selecciona una imagen o sube una desde tu computador.");
-            return;
-        }
-
         const productoActualizado = {
             id: producto ? producto.id : obtenerNuevoId(),
             nombre: formulario.nombre.trim(),
             categoria: formulario.categoria,
             precio: Number(formulario.precio),
-            color: formulario.color,
+            color: formulario.color.trim(),
             descuento: Number(formulario.descuento),
             tallas: formulario.tallas,
             imagen: formulario.imagen,
@@ -306,27 +175,35 @@ function AdminEditarProducto() {
             ];
         }
 
-        try {
-            localStorage.setItem(
-                "productos",
-                JSON.stringify(productosActualizados)
-            );
+        localStorage.setItem(
+            "productos",
+            JSON.stringify(productosActualizados)
+        );
 
-            navigate("/admin/productos");
-        } catch {
-            setError(
-                "No se pudo guardar el producto. La imagen puede ser demasiado grande o el almacenamiento estar lleno."
-            );
+        navigate("/admin/productos");
+    }
+
+    function obtenerNuevoId() {
+        if (productos.length === 0) {
+            return 1;
         }
+
+        return Math.max(
+            ...productos.map(function (productoActual) {
+                return Number(productoActual.id);
+            })
+        ) + 1;
     }
 
     return (
         <div className="pagina-admin">
             <div className="container-fluid">
                 <div className="row min-vh-100">
+
                     <AdminSidebar />
 
                     <main className="col-md-9 col-lg-10 bg-light p-4 p-md-5">
+
                         <div className="d-flex justify-content-between align-items-center mb-4">
                             <div>
                                 <h1 className="fw-bold">
@@ -370,6 +247,7 @@ function AdminEditarProducto() {
                         ) : (
                             <div className="card shadow-sm">
                                 <div className="card-body">
+
                                     {error && (
                                         <div className="alert alert-danger">
                                             {error}
@@ -377,6 +255,7 @@ function AdminEditarProducto() {
                                     )}
 
                                     <form onSubmit={guardarProducto}>
+
                                         <div className="mb-3">
                                             <label
                                                 htmlFor="nombre"
@@ -416,21 +295,17 @@ function AdminEditarProducto() {
                                                     Seleccionar categoría
                                                 </option>
 
-                                                {categorias.map(categoria => (
-                                                    <option
-                                                        key={categoria}
-                                                        value={categoria}
-                                                    >
-                                                        {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
-                                                    </option>
-                                                ))}
+                                                <option value="poleras">
+                                                    Poleras
+                                                </option>
 
-                                                {formulario.categoria &&
-                                                    !categorias.includes(formulario.categoria) && (
-                                                        <option value={formulario.categoria}>
-                                                            {formulario.categoria}
-                                                        </option>
-                                                    )}
+                                                <option value="polerones">
+                                                    Polerones
+                                                </option>
+
+                                                <option value="gorras">
+                                                    Gorras
+                                                </option>
                                             </select>
                                         </div>
 
@@ -463,34 +338,15 @@ function AdminEditarProducto() {
                                                 Color
                                             </label>
 
-                                            <select
-                                                className="form-select"
+                                            <input
+                                                type="text"
+                                                className="form-control"
                                                 id="color"
                                                 name="color"
                                                 value={formulario.color}
                                                 onChange={actualizarCampo}
                                                 required
-                                            >
-                                                <option value="">
-                                                    Seleccionar color
-                                                </option>
-
-                                                {colores.map(color => (
-                                                    <option
-                                                        key={color}
-                                                        value={color}
-                                                    >
-                                                        {color.charAt(0).toUpperCase() + color.slice(1)}
-                                                    </option>
-                                                ))}
-
-                                                {formulario.color &&
-                                                    !colores.includes(formulario.color) && (
-                                                        <option value={formulario.color}>
-                                                            {formulario.color}
-                                                        </option>
-                                                    )}
-                                            </select>
+                                            />
                                         </div>
 
                                         <div className="mb-3">
@@ -631,9 +487,10 @@ function AdminEditarProducto() {
                                                 name="imagen"
                                                 value={formulario.imagen}
                                                 onChange={actualizarCampo}
+                                                required
                                             >
                                                 <option value="">
-                                                    Seleccionar imagen existente
+                                                    Seleccionar imagen
                                                 </option>
 
                                                 <option value={images.imagen1}>
@@ -659,34 +516,7 @@ function AdminEditarProducto() {
                                                 <option value={images.imagen6}>
                                                     Imagen 6
                                                 </option>
-
-                                                {formulario.imagen.startsWith("data:image/") && (
-                                                    <option value={formulario.imagen}>
-                                                        Imagen subida desde el computador
-                                                    </option>
-                                                )}
                                             </select>
-
-                                            <div className="mt-3">
-                                                <label
-                                                    htmlFor="archivoImagen"
-                                                    className="form-label"
-                                                >
-                                                    O subir una imagen desde tu computador
-                                                </label>
-
-                                                <input
-                                                    type="file"
-                                                    className="form-control"
-                                                    id="archivoImagen"
-                                                    accept="image/*"
-                                                    onChange={subirImagen}
-                                                />
-
-                                                <div className="form-text">
-                                                    Opcional. Máximo 8 MB antes de la compresión.
-                                                </div>
-                                            </div>
                                         </div>
 
                                         {formulario.imagen && (
@@ -743,10 +573,12 @@ function AdminEditarProducto() {
                                                 Cancelar
                                             </Link>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>
                         )}
+
                     </main>
                 </div>
             </div>

@@ -1,0 +1,133 @@
+
+.pagina-nosotros {
+  font-family: "Nunito Sans", sans-serif;
+  color: #30213f;
+  background: linear-gradient(135deg, #f5e7ff, #fce5f2);
+}
+
+/* Cabecera de la página */
+.pagina-nosotros .breadcrumb-option {
+  background: #fff8fd;
+  padding: 40px 0;
+}
+
+.pagina-nosotros .breadcrumb__text h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #42245c;
+  margin-bottom: 10px;
+}
+
+.pagina-nosotros .breadcrumb__links a {
+  color: #8b4caf;
+  margin-right: 18px;
+}
+
+.pagina-nosotros .breadcrumb__links span {
+  color: #65536e;
+}
+
+/* Espaciado */
+.pagina-nosotros .spad {
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+/* Títulos */
+.pagina-nosotros .section-title {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.pagina-nosotros .section-title span {
+  color: #9639ad;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.pagina-nosotros .section-title h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #42245c;
+}
+
+/* Textos principales */
+.pagina-nosotros .texto-centrado {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pagina-nosotros .texto-centrado p {
+  font-size: 16px;
+  line-height: 30px;
+  color: #35283f;
+}
+
+/* Secciones de información */
+.pagina-nosotros .bloque {
+  background: rgba(255, 255, 255, 0.88);
+  padding: 45px 35px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(120, 65, 160, 0.08);
+}
+
+.pagina-nosotros .bloque + .bloque {
+  margin-top: 60px;
+}
+
+/* Tarjetas de ventajas */
+.pagina-nosotros .feature-box {
+  height: 100%;
+  background: #fffafd;
+  padding: 40px 30px 30px;
+  text-align: center;
+  border-radius: 18px;
+  border: 1px solid #ecd6f5;
+  box-shadow: 0 5px 18px rgba(120, 65, 160, 0.08);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.pagina-nosotros .feature-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(153, 82, 181, 0.18);
+  border-color: #dca4e9;
+}
+
+.pagina-nosotros .feature-box h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #542a70;
+  margin-bottom: 15px;
+}
+
+.pagina-nosotros .feature-box p {
+  color: #403349;
+  line-height: 26px;
+}
+
+/* Adaptación a celulares */
+@media (max-width: 767px) {
+  .pagina-nosotros .spad {
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+
+  .pagina-nosotros .section-title h2 {
+    font-size: 28px;
+  }
+
+  .pagina-nosotros .bloque {
+    padding: 30px 20px;
+  }
+
+  .pagina-nosotros .feature-box {
+    padding: 30px 20px;
+  }
+}
