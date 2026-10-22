@@ -1,0 +1,243 @@
+
+/* Página Contacto */
+
+.contact {
+  padding: 90px 0;
+  background-color: #ffffff;
+}
+
+.contact__box {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #f3f2ee;
+  border-radius: 8px;
+}
+
+/* Título */
+
+.contact .section-title {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.contact .section-title span {
+  color: #e53637;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.contact .section-title h2 {
+  color: #111111;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+/* Campos del formulario */
+
+.contact__form .row > div {
+  margin-bottom: 22px;
+}
+
+.contact__form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+.contact__form input:not([type="file"]),
+.contact__form textarea {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.contact__form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: none;
+  border-color: #e53637;
+}
+
+/* Subir archivo */
+
+.contact__form input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+/* Botón Enviar */
+
+.contact__form .site-btn {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 15px 45px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact__form .site-btn:hover {
+  background-color: #e53637;
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 45px 0;
+  }
+
+  .contact__box {
+    padding: 25px 20px;
+  }
+
+  .contact .section-title h2 {
+    font-size: 26px;
+  }
+
+  .contact__form .site-btn {
+    width: 100%;
+  }
+}
+.mensaje-error {
+    color: #e63946;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.mensaje-exito {
+    margin-top: 25px;
+    padding: 25px;
+    background-color: #e8f8ef;
+    border: 1px solid #a3dfba;
+    border-radius: 12px;
+    text-align: center;
+    animation: aparecer 0.4s ease;
+}
+
+.mensaje-exito h3 {
+    color: #218653;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.mensaje-exito p {
+    color: #356b4c;
+    font-size: 15px;
+    margin: 0;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Fondo degradado lila y rosado */
+.contact {
+    background: linear-gradient(
+        135deg,
+        #f7e8ff 0%,
+        #e9d5ff 40%,
+        #fce7f3 100%
+    );
+
+    min-height: 100vh;
+    padding: 80px 0;
+}
+
+/* Caja del formulario */
+.contact__box {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #e9d5ff;
+    border-radius: 20px;
+    padding: 45px;
+
+    box-shadow: 0 15px 40px rgba(145, 90, 180, 0.15);
+}
+
+/* Campos del formulario */
+.contact__form input,
+.contact__form textarea {
+    border: 1px solid #e4d4f0;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+/* Efecto al seleccionar un campo */
+.contact__form input:focus,
+.contact__form textarea:focus {
+    border-color: #b794f4;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(183, 148, 244, 0.18);
+}
+
+/* Botón rosado */
+.contact .site-btn {
+    background: #d96ca5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.contact .site-btn:hover {
+    background: #b84f8b;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(184, 79, 139, 0.25);
+}
+/* Subtítulo ESCRÍBENOS */
+.contact .section-title span {
+    color: #8736a8;
+    font-weight: 800;
+}
+
+/* Título contacto */
+.contact .section-title h2 {
+    color: #392047;
+    font-weight: 800;
+}
+
+/* Etiquetas del formulario */
+.contact__form label {
+    color: #29212f;
+    font-weight: 700;
+}
+
+/* Texto dentro de los campos */
+.contact__form input,
+.contact__form textarea {
+    color: #222222;
+}

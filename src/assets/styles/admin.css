@@ -1,0 +1,327 @@
+/* =========================================================
+   CSS DEL PANEL DE ADMINISTRACIÓN
+========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+
+:root {
+    --mf-negro: #111111;
+    --mf-rojo: #e53637;
+    --mf-beige: #f3f2ee;
+    --mf-borde: #e1e1e1;
+}
+
+.pagina-admin {
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: "Nunito Sans", sans-serif;
+    color: #3d3d3d;
+    -webkit-font-smoothing: antialiased;
+}
+
+.pagina-admin h1,
+.pagina-admin h2,
+.pagina-admin h3,
+.pagina-admin h4,
+.pagina-admin h5,
+.pagina-admin h6 {
+    font-family: "Nunito Sans", sans-serif;
+    color: var(--mf-negro);
+    font-weight: 700;
+}
+
+.pagina-admin .bg-light {
+    background-color: var(--mf-beige) !important;
+}
+
+.pagina-admin .text-muted {
+    color: #707070 !important;
+}
+
+/* ---------- Barra lateral ---------- */
+
+.pagina-admin aside.bg-dark {
+    background-color: var(--mf-negro) !important;
+}
+
+.pagina-admin aside h4 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.pagina-admin aside .text-secondary {
+    letter-spacing: 2px;
+    color: #b7b7b7 !important;
+}
+
+.pagina-admin aside hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+}
+
+.pagina-admin aside .nav-link {
+    color: #b7b7b7 !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    padding: 10px 0 10px 14px;
+    border-left: 3px solid transparent;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.pagina-admin aside .nav-link:hover,
+.pagina-admin aside .nav-link.active {
+    color: #ffffff !important;
+    background: transparent;
+    border-left-color: var(--mf-rojo);
+}
+
+/* ---------- Botones ---------- */
+
+.pagina-admin .btn {
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 11px 22px;
+    transition: all 0.3s;
+}
+
+.pagina-admin .btn-sm {
+    padding: 7px 14px;
+    letter-spacing: 1px;
+}
+
+.pagina-admin .btn-primary,
+.pagina-admin .btn-dark {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-primary:hover,
+.pagina-admin .btn-primary:focus,
+.pagina-admin .btn-primary:active,
+.pagina-admin .btn-dark:hover {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn-outline-primary,
+.pagina-admin .btn-outline-secondary,
+.pagina-admin .btn-outline-dark {
+    color: var(--mf-negro);
+    border-color: var(--mf-borde);
+    background: transparent;
+}
+
+.pagina-admin .btn-outline-primary:hover,
+.pagina-admin .btn-outline-secondary:hover,
+.pagina-admin .btn-outline-dark:hover {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-success {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+}
+
+.pagina-admin .btn-success:hover {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+}
+
+.pagina-admin .btn-secondary {
+    background-color: #ffffff;
+    border-color: var(--mf-borde);
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn-secondary:hover {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-danger,
+.pagina-admin .btn-outline-danger {
+    border-radius: 0;
+}
+
+/* ---------- Tarjetas, tablas y formularios ---------- */
+
+.pagina-admin .card {
+    border-radius: 0;
+    border: 1px solid var(--mf-borde) !important;
+    box-shadow: none !important;
+}
+
+.pagina-admin .table > :not(caption) > * > * {
+    border-bottom-color: #f2f2f2;
+}
+
+.pagina-admin .table thead th {
+    color: var(--mf-negro);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--mf-negro);
+}
+
+.pagina-admin .table-hover > tbody > tr:hover > * {
+    background-color: var(--mf-beige);
+    color: inherit;
+}
+
+.pagina-admin .form-label,
+.pagina-admin label {
+    color: var(--mf-negro);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.pagina-admin .form-control,
+.pagina-admin .form-select {
+    border-radius: 0;
+    border-color: var(--mf-borde);
+    min-height: 46px;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .form-control:focus,
+.pagina-admin .form-select:focus {
+    border-color: var(--mf-negro);
+    box-shadow: none;
+}
+
+.pagina-admin .form-check-input:checked {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+}
+
+.pagina-admin .badge {
+    border-radius: 0;
+    letter-spacing: 1px;
+}
+
+.pagina-admin .modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.pagina-admin a:not(.btn):not(.nav-link) {
+    color: var(--mf-negro);
+}
+
+.pagina-admin a:not(.btn):not(.nav-link):hover {
+    color: var(--mf-rojo);
+}
+
+.pagina-admin aside .btn-outline-light {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.pagina-admin aside .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn:hover,
+.pagina-admin aside .nav-link:hover {
+    text-decoration: none;
+}
+
+.pagina-admin .btn-primary,
+.pagina-admin .btn-primary:hover,
+.pagina-admin .btn-dark,
+.pagina-admin .btn-dark:hover,
+.pagina-admin .btn-success,
+.pagina-admin .btn-success:hover,
+.pagina-admin .btn-danger,
+.pagina-admin .btn-danger:hover {
+    color: #ffffff;
+}
+
+/* ---------- Páginas con tarjetas de acceso (inicio admin) ---------- */
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-card {
+    background-color: var(--mf-beige);
+    padding: 40px;
+    text-align: center;
+    border-radius: 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.admin-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* ---------- Pie ---------- */
+
+.pagina-admin footer {
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    background-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .form-check-label {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* El botón de la barra lateral debe caber en su ancho */
+.pagina-admin aside .position-absolute {
+    width: 100%;
+}
+
+.pagina-admin aside .btn {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    white-space: normal;
+}
+
+.pagina-admin aside {
+    position: relative;
+}
+
+.pagina-admin .imagen-producto-admin {
+    max-height: 400px;
+}
+
+.pagina-admin .imagen-eliminar-producto {
+    max-width: 180px;
+}
