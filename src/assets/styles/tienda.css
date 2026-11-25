@@ -1,0 +1,1299 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+
+:root {
+    --mf-negro: #111111;
+    --mf-rojo: #e53637;
+    --mf-beige: #f3f2ee;
+    --mf-borde: #e1e1e1;
+}
+
+/* ---------- Estilos generales ---------- */
+
+.pagina-tienda {
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: "Nunito Sans", sans-serif;
+    color: #3d3d3d;
+    -webkit-font-smoothing: antialiased;
+}
+
+.pagina-tienda h1,
+.pagina-tienda h2,
+.pagina-tienda h3,
+.pagina-tienda h4,
+.pagina-tienda h5,
+.pagina-tienda h6 {
+    font-family: "Nunito Sans", sans-serif;
+    color: var(--mf-negro);
+    font-weight: 800;
+}
+
+.pagina-tienda p {
+    line-height: 1.7;
+}
+
+.pagina-tienda a {
+    color: var(--mf-negro);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.pagina-tienda a:hover {
+    color: var(--mf-rojo);
+}
+
+/* ---------- Barra de navegación ---------- */
+
+.pagina-tienda .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--mf-borde);
+    padding: 18px 0;
+}
+
+.pagina-tienda .navbar-brand {
+    color: var(--mf-negro);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.pagina-tienda .navbar-brand:hover {
+    color: var(--mf-rojo);
+}
+
+.pagina-tienda .navbar .nav-link {
+    color: var(--mf-negro);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 10px 14px;
+}
+
+.pagina-tienda .navbar .nav-link:hover,
+.pagina-tienda .navbar .nav-link.active {
+    color: var(--mf-rojo);
+}
+
+/* ---------- Títulos y encabezados ---------- */
+
+.pagina-tienda .titulo-seccion {
+    margin-bottom: 12px;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pagina-tienda .subtitulo-seccion {
+    color: #707070;
+    margin-bottom: 30px;
+}
+
+.pagina-tienda .encabezado-tienda {
+    padding: 55px 0 35px;
+}
+
+.pagina-tienda .encabezado-tienda .etiqueta {
+    color: var(--mf-rojo);
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* ---------- Botones ---------- */
+
+.pagina-tienda .btn {
+    border-radius: 0;
+    padding: 12px 22px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s;
+}
+
+.pagina-tienda .btn-primary,
+.pagina-tienda .btn-dark {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-tienda .btn-primary:hover,
+.pagina-tienda .btn-dark:hover {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+    color: #ffffff;
+}
+
+.pagina-tienda .btn-outline-dark {
+    color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    background-color: transparent;
+}
+
+.pagina-tienda .btn-outline-dark:hover {
+    background-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-tienda .btn-danger {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+}
+
+/* ---------- Tarjetas de categorías ---------- */
+
+.pagina-tienda .tarjeta-categoria {
+    height: 100%;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.pagina-tienda .tarjeta-categoria:hover {
+    transform: translateY(-5px);
+    border-color: var(--mf-negro);
+}
+
+.pagina-tienda .tarjeta-categoria .imagen-categoria {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background-color: var(--mf-beige);
+}
+
+.pagina-tienda .tarjeta-categoria .contenido-categoria {
+    padding: 20px;
+}
+
+.pagina-tienda .tarjeta-categoria h3 {
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.pagina-tienda .tarjeta-categoria p {
+    color: #707070;
+    font-size: 14px;
+}
+
+.pagina-tienda .tarjeta-categoria .enlace-categoria {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ---------- Tarjetas de productos ---------- */
+
+.pagina-tienda .tarjeta-producto {
+    height: 100%;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+    transition: border-color 0.3s, transform 0.3s;
+}
+
+.pagina-tienda .tarjeta-producto:hover {
+    border-color: var(--mf-negro);
+    transform: translateY(-3px);
+}
+
+.pagina-tienda .tarjeta-producto .imagen-producto {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    display: block;
+    background-color: var(--mf-beige);
+}
+
+.pagina-tienda .tarjeta-producto .contenido-producto {
+    padding: 16px;
+}
+
+.pagina-tienda .tarjeta-producto .nombre-producto {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.pagina-tienda .tarjeta-producto .precio-producto {
+    color: var(--mf-negro);
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.pagina-tienda .tarjeta-producto .precio-anterior {
+    color: #888888;
+    font-size: 13px;
+    text-decoration: line-through;
+}
+
+.pagina-tienda .tarjeta-producto .etiqueta-descuento {
+    display: inline-block;
+    padding: 5px 8px;
+    background-color: var(--mf-rojo);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* ---------- Filtros y formularios ---------- */
+
+.pagina-tienda .form-label,
+.pagina-tienda label {
+    color: var(--mf-negro);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.pagina-tienda .form-control,
+.pagina-tienda .form-select {
+    min-height: 44px;
+    border: 1px solid var(--mf-borde);
+    border-radius: 0;
+    color: var(--mf-negro);
+}
+
+.pagina-tienda .form-control:focus,
+.pagina-tienda .form-select:focus {
+    border-color: var(--mf-negro);
+    box-shadow: none;
+}
+
+/* ---------- Tablas y contenedores ---------- */
+
+.pagina-tienda .table {
+    vertical-align: middle;
+}
+
+.pagina-tienda .table thead th {
+    color: var(--mf-negro);
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--mf-negro);
+}
+
+.pagina-tienda .card {
+    border: 1px solid var(--mf-borde);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* ---------- Pie de página ---------- */
+
+.pagina-tienda footer {
+    margin-top: 60px;
+    padding: 35px 20px;
+    background-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-tienda footer h5 {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.pagina-tienda footer a {
+    color: #d0d0d0;
+}
+
+.pagina-tienda footer a:hover {
+    color: #ffffff;
+}
+
+.pagina-tienda footer p {
+    color: #d0d0d0;
+    font-size: 14px;
+}
+
+/* ---------- Ajustes para pantallas pequeñas ---------- */
+
+@media (max-width: 767px) {
+    .pagina-tienda .navbar-brand {
+        font-size: 22px;
+    }
+
+    .pagina-tienda .encabezado-tienda {
+        padding: 35px 0 25px;
+    }
+
+    .pagina-tienda .tarjeta-categoria .contenido-categoria {
+        padding: 14px;
+    }
+
+    .pagina-tienda .btn {
+        padding: 10px 14px;
+        letter-spacing: 1px;
+    }
+}
+
+/*-----------------------------------------*/
+
+
+/* ---------- Modal de productos ---------- */
+
+.pagina-tienda .modal {
+    background-color: transparent;
+}
+
+.pagina-tienda .modal-backdrop {
+    z-index: 1040;
+}
+
+.pagina-tienda .modal {
+    z-index: 1050;
+}
+
+.pagina-tienda .modal-content {
+    border: 1px solid var(--mf-borde, #e1e1e1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.pagina-tienda .modal-header,
+.pagina-tienda .modal-footer {
+    border-color: var(--mf-borde, #e1e1e1);
+}
+
+.pagina-tienda .modal-imagen-contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 320px;
+    overflow: hidden;
+}
+
+.pagina-tienda .modal-imagen-contenedor img {
+    display: block;
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+}
+
+.pagina-tienda .precio-anterior {
+    color: #777777;
+    font-size: 14px;
+}
+
+.pagina-tienda .etiqueta-descuento {
+    color: var(--mf-rojo, #e53637);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.pagina-tienda .precio-producto {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* ---------- registro y login ---------- */
+
+.pagina-tienda .formulario-auth {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 32px;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+}
+
+.pagina-tienda .formulario-auth .mb-3 {
+    margin-bottom: 20px !important;
+}
+
+.pagina-tienda .formulario-auth .form-check-label {
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.pagina-tienda .enlace-auth {
+    text-align: center;
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.pagina-tienda .enlace-auth a {
+    color: var(--mf-rojo);
+    font-weight: 800;
+}
+
+@media (max-width: 576px) {
+    .pagina-tienda .formulario-auth {
+        padding: 22px 18px;
+    }
+}
+
+
+/* ---------- cuenta ---------- */
+
+.pagina-tienda .usuario-bienvenida {
+    padding: 40px 32px;
+    background-color: var(--mf-beige);
+    text-align: center;
+}
+
+.pagina-tienda .usuario-bienvenida h1 {
+    margin: 16px 0;
+    color: var(--mf-negro);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 900;
+}
+
+.pagina-tienda .usuario-bienvenida p {
+    margin: 0 auto 24px;
+    max-width: 650px;
+    color: #666666;
+    line-height: 1.7;
+}
+
+.pagina-tienda .usuario-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 32px 24px;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+    text-align: center;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.pagina-tienda .usuario-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.pagina-tienda .usuario-icon {
+    margin-bottom: 18px;
+    font-size: 36px;
+}
+
+.pagina-tienda .usuario-card h2 {
+    margin-bottom: 12px;
+    color: var(--mf-negro);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.pagina-tienda .usuario-card p {
+    flex-grow: 1;
+    margin-bottom: 24px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+.pagina-tienda .usuario-card .btn {
+    width: 100%;
+    margin-top: auto;
+}
+
+@media (max-width: 576px) {
+    .pagina-tienda .usuario-bienvenida {
+        padding: 30px 18px;
+    }
+
+    .pagina-tienda .usuario-card {
+        padding: 26px 20px;
+    }
+}
+
+
+/* ---------- Carrito de compras ---------- */
+
+.pagina-tienda .carrito-vacio {
+    padding: 40px 24px;
+    border: 1px solid var(--mf-borde);
+    text-align: center;
+}
+
+.pagina-tienda .carrito-vacio h2 {
+    color: var(--mf-negro);
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.pagina-tienda .carrito-vacio p {
+    margin: 16px 0 24px;
+    color: #666666;
+}
+
+.pagina-tienda .carrito-producto {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+    padding: 24px;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+}
+
+.pagina-tienda .carrito-imagen {
+    display: flex;
+    flex: 0 0 150px;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    background-color: var(--mf-beige);
+}
+
+.pagina-tienda .carrito-imagen img {
+    display: block;
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+.pagina-tienda .carrito-sin-imagen {
+    padding: 12px;
+    color: #666666;
+    font-size: 13px;
+}
+
+.pagina-tienda .carrito-detalle {
+    flex: 1;
+    min-width: 0;
+}
+
+.pagina-tienda .carrito-detalle h2 {
+    margin-bottom: 12px;
+    color: var(--mf-negro);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.pagina-tienda .carrito-detalle p {
+    margin-bottom: 8px;
+}
+
+.pagina-tienda .carrito-precio-original {
+    color: #777777;
+}
+
+.pagina-tienda .carrito-descuento {
+    color: var(--mf-rojo);
+    font-weight: 800;
+}
+
+.pagina-tienda .carrito-precio-final {
+    color: var(--mf-negro);
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.pagina-tienda .carrito-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.pagina-tienda .carrito-cantidad {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 800;
+}
+
+.pagina-tienda .carrito-resumen {
+    position: sticky;
+    top: 24px;
+    padding: 26px;
+    border: 1px solid var(--mf-borde);
+    background-color: #ffffff;
+}
+
+.pagina-tienda .carrito-resumen h2 {
+    margin-bottom: 24px;
+    color: var(--mf-negro);
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.pagina-tienda .carrito-linea-resumen {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.pagina-tienda .carrito-total {
+    color: var(--mf-negro);
+    font-size: 18px;
+}
+
+.pagina-tienda .carrito-simulacion-pago {
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid var(--mf-borde);
+    background-color: var(--mf-beige);
+}
+
+.pagina-tienda .carrito-simulacion-pago h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.pagina-tienda .carrito-simulacion-pago p {
+    color: #666666;
+    font-size: 14px;
+}
+
+.pagina-tienda .carrito-nota {
+    margin-top: 18px;
+    margin-bottom: 0;
+    color: #777777;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+    .pagina-tienda .carrito-producto {
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px;
+    }
+
+    .pagina-tienda .carrito-imagen {
+        flex-basis: auto;
+        min-height: 180px;
+    }
+
+    .pagina-tienda .carrito-imagen img {
+        max-height: 220px;
+    }
+
+    .pagina-tienda .carrito-resumen {
+        position: static;
+        padding: 20px;
+    }
+}
+
+
+/* =====================================================================
+   IDENTIDAD VISUAL TU POLERA (tienda y panel administrativo)
+   Paleta: negro, rojo y beige. Tipografía: Nunito Sans.
+   ===================================================================== */
+
+:root {
+    --tp-negro: #111111;
+    --tp-grafito: #2b2b2b;
+    --tp-rojo: #e53637;
+    --tp-rojo-oscuro: #c22a2b;
+    --tp-beige: #f3f2ee;
+    --tp-borde: #e1e1e1;
+    --tp-texto: #3d3d3d;
+    --tp-suave: #6b6b6b;
+    --tp-radio: 10px;
+    --tp-sombra: 0 6px 20px rgba(17, 17, 17, 0.08);
+}
+
+/* ---------- Iconos y logotipo (compartidos) ---------- */
+
+.icono {
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.logo-tupolera {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.1;
+}
+
+.logo-fondo {
+    fill: var(--tp-negro);
+}
+
+.logo-polera {
+    fill: #ffffff;
+}
+
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-texto strong {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: var(--tp-negro);
+}
+
+.logo-texto small {
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    color: var(--tp-suave);
+}
+
+.logo-claro .logo-fondo {
+    fill: var(--tp-rojo);
+}
+
+.logo-claro .logo-texto strong {
+    color: #ffffff;
+}
+
+.logo-claro .logo-texto small {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera-tienda {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: #ffffff;
+}
+
+.barra-anuncio {
+    background: var(--tp-negro);
+    color: #ffffff;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    padding: 7px 12px;
+}
+
+.pagina-tienda .cabecera-tienda .navbar {
+    padding: 12px 0;
+}
+
+.pagina-tienda .navbar-brand {
+    padding: 0;
+}
+
+.pagina-tienda .navbar .nav-link {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+}
+
+.pagina-tienda .navbar .nav-link.active,
+.pagina-tienda .navbar .nav-link:hover {
+    color: var(--tp-rojo);
+}
+
+.acciones-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.acciones-navbar .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (min-width: 992px) {
+    .acciones-navbar {
+        margin-top: 0;
+    }
+}
+
+/* ---------- Botones ---------- */
+
+.pagina-tienda .btn-tienda {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--tp-negro);
+    color: #ffffff;
+    border: 2px solid var(--tp-negro);
+    border-radius: 0;
+    padding: 11px 24px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.pagina-tienda .btn-tienda:hover,
+.pagina-tienda .btn-tienda:focus-visible {
+    background: var(--tp-rojo);
+    border-color: var(--tp-rojo);
+    color: #ffffff;
+}
+
+.pagina-tienda .btn-tienda:disabled {
+    background: #9a9a9a;
+    border-color: #9a9a9a;
+}
+
+.pagina-tienda a:focus-visible,
+.pagina-tienda button:focus-visible,
+.pagina-tienda input:focus-visible,
+.pagina-tienda select:focus-visible,
+.pagina-tienda textarea:focus-visible,
+.pagina-admin a:focus-visible,
+.pagina-admin button:focus-visible {
+    outline: 3px solid rgba(229, 54, 55, 0.45);
+    outline-offset: 2px;
+}
+
+/* ---------- Portada de páginas informativas ---------- */
+
+.portada-pagina {
+    background: var(--tp-negro);
+    color: #ffffff;
+    text-align: center;
+    padding: 64px 0;
+}
+
+.pagina-tienda .portada-pagina h1 {
+    color: #ffffff;
+    font-size: clamp(28px, 5vw, 44px);
+    margin: 10px 0 12px;
+}
+
+.portada-pagina p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.portada-pagina .etiqueta {
+    color: var(--tp-rojo);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.seccion-pagina {
+    padding-top: 56px;
+    padding-bottom: 56px;
+}
+
+.seccion-oscura {
+    background: var(--tp-beige);
+}
+
+.texto-centrado {
+    max-width: 720px;
+    margin: 0 auto 24px;
+}
+
+/* ---------- Carrusel principal ---------- */
+
+.pagina-tienda .carousel-home .carousel-item img {
+    height: clamp(260px, 42vw, 460px);
+    object-fit: contain;
+    background: var(--tp-beige);
+}
+
+.pagina-tienda .carousel-home .carousel-caption {
+    border-radius: var(--tp-radio);
+}
+
+/* ---------- Tarjetas de producto ---------- */
+
+.pagina-tienda .tarjeta-producto {
+    border: 1px solid var(--tp-borde);
+    border-radius: var(--tp-radio);
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.pagina-tienda .tarjeta-producto:hover {
+    box-shadow: var(--tp-sombra);
+}
+
+.pagina-tienda .tarjeta-producto .imagen-producto {
+    background: var(--tp-beige);
+    object-fit: contain;
+}
+
+.stock-agotado {
+    color: var(--tp-rojo);
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 8px;
+}
+
+/* ---------- Ventana del producto ---------- */
+
+.modal-producto {
+    overflow-y: auto;
+    background: rgba(17, 17, 17, 0.35);
+}
+
+.pagina-tienda .modal-producto .modal-content {
+    border: 0;
+    border-radius: var(--tp-radio);
+}
+
+.producto-categoria {
+    display: inline-block;
+    background: var(--tp-beige);
+    color: var(--tp-grafito);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.producto-atributos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px 16px;
+    margin: 12px 0 16px;
+}
+
+.producto-atributos dt {
+    font-size: 12px;
+    color: var(--tp-suave);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.producto-atributos dd {
+    margin: 0;
+    font-weight: 700;
+    color: var(--tp-negro);
+}
+
+.selector-tallas {
+    border: 0;
+    padding: 0;
+    margin: 0 0 8px;
+}
+
+.tallas-opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.talla-boton {
+    min-width: 52px;
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 2px solid var(--tp-borde);
+    border-radius: 8px;
+    font-weight: 800;
+    color: var(--tp-negro);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.talla-boton:hover:not(:disabled) {
+    border-color: var(--tp-negro);
+}
+
+.talla-boton.activa {
+    background: var(--tp-negro);
+    border-color: var(--tp-negro);
+    color: #ffffff;
+}
+
+.talla-boton.agotada {
+    color: #9a9a9a;
+    background: #f5f5f5;
+    text-decoration: line-through;
+    cursor: not-allowed;
+}
+
+.talla-boton small {
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--tp-rojo);
+}
+
+.stock-texto {
+    font-size: 14px;
+    color: var(--tp-suave);
+    margin: 8px 0;
+}
+
+/* ---------- Comparador de medidas ---------- */
+
+.comparador-medidas {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--tp-beige);
+    border-radius: var(--tp-radio);
+}
+
+.pagina-tienda .comparador-titulo {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.comparador-ayuda,
+.comparador-nota,
+.comparador-aviso {
+    font-size: 14px;
+    color: var(--tp-suave);
+}
+
+.comparador-aviso {
+    margin: 14px 0 0;
+}
+
+.comparador-nota {
+    margin: 10px 0 0;
+    font-style: italic;
+}
+
+.comparador-tabla {
+    margin-top: 14px;
+    background: #ffffff;
+}
+
+.guia-tallas {
+    margin-top: 16px;
+}
+
+.guia-tallas summary {
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--tp-negro);
+}
+
+/* ---------- Carrito: despacho ---------- */
+
+.carrito-despacho {
+    background: #ffffff;
+    border: 1px solid var(--tp-borde);
+    border-radius: var(--tp-radio);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.carrito-despacho h2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+.despacho-direccion {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+/* ---------- Mis compras ---------- */
+
+.lista-compras {
+    list-style: none;
+    padding: 0;
+    margin: 32px auto 0;
+    max-width: 860px;
+}
+
+.compra-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid var(--tp-borde);
+    border-radius: var(--tp-radio);
+}
+
+.compra-item h2 {
+    font-size: 18px;
+    margin: 0 0 2px;
+}
+
+.compra-item p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--tp-suave);
+}
+
+.compra-total {
+    font-size: 18px;
+}
+
+.boleta-estado {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.boleta-estado.pagada {
+    background: #e3f4e8;
+    color: #1d6b37;
+}
+
+.boleta-estado.rechazada {
+    background: #fde8e8;
+    color: #a52a2a;
+}
+
+.boleta-usuario {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid var(--tp-borde);
+    border-radius: var(--tp-radio);
+    box-shadow: var(--tp-sombra);
+}
+
+.boleta-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.boleta-cabecera .etiqueta {
+    color: var(--tp-rojo);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.boleta-cabecera h1 {
+    font-size: 28px;
+    margin: 4px 0;
+}
+
+.boleta-totales {
+    margin: 16px 0 20px auto;
+    max-width: 320px;
+}
+
+.boleta-totales div {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.boleta-total {
+    border-top: 2px solid var(--tp-negro);
+    margin-top: 6px;
+    padding-top: 10px !important;
+    font-size: 18px;
+}
+
+.boleta-despacho {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--tp-suave);
+}
+
+/* ---------- Mi cuenta ---------- */
+
+.pagina-tienda .usuario-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--tp-beige);
+    color: var(--tp-negro);
+    margin-bottom: 12px;
+}
+
+/* ---------- Pie de página ---------- */
+
+.pagina-tienda .pie-tienda {
+    background: var(--tp-negro);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 56px 0 24px;
+    margin-top: 48px;
+}
+
+.pagina-tienda .pie-tienda h5 {
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+}
+
+.pagina-tienda .pie-tienda li {
+    margin-bottom: 8px;
+}
+
+.pagina-tienda .pie-tienda a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.pagina-tienda .pie-tienda a:hover {
+    color: #ffffff;
+}
+
+.pie-descripcion {
+    margin-top: 16px;
+    max-width: 420px;
+}
+
+.pie-separador {
+    border-color: rgba(255, 255, 255, 0.2);
+    margin: 32px 0 16px;
+}
+
+.pie-derechos {
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* ---------- Adaptación a móviles ---------- */
+
+@media (max-width: 767.98px) {
+    .compra-item {
+        grid-template-columns: 1fr auto;
+    }
+
+    .boleta-usuario {
+        padding: 20px;
+    }
+
+    .portada-pagina {
+        padding: 44px 0;
+    }
+
+    .comparador-medidas {
+        padding: 14px;
+    }
+}

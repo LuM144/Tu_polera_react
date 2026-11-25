@@ -1,0 +1,64 @@
+/* Página Contacto */
+
+.contacto-info,
+.contacto-formulario {
+    height: 100%;
+    border-radius: var(--tp-radio);
+    padding: 32px;
+}
+
+.contacto-info {
+    background: var(--tp-negro);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.pagina-tienda .contacto-info h2 {
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 24px;
+}
+
+.contacto-dato {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.contacto-dato .icono {
+    color: var(--tp-rojo);
+    margin-top: 2px;
+}
+
+.contacto-dato strong {
+    display: block;
+    color: #ffffff;
+}
+
+.contacto-nota {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 24px 0 0;
+}
+
+.contacto-formulario {
+    background: #ffffff;
+    border: 1px solid var(--tp-borde);
+}
+
+.pagina-tienda .contacto-formulario h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.mensaje-error {
+    color: #b42323;
+    font-size: 13px;
+    margin: 4px 0 0;
+}
+
+@media (max-width: 575.98px) {
+    .contacto-info,
+    .contacto-formulario {
+        padding: 22px;
+    }
+}

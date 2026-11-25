@@ -1,0 +1,803 @@
+/* =========================================================
+   CSS DEL PANEL DE ADMINISTRACIÓN
+========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+
+:root {
+    --mf-negro: #111111;
+    --mf-rojo: #e53637;
+    --mf-beige: #f3f2ee;
+    --mf-borde: #e1e1e1;
+}
+
+.pagina-admin {
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: "Nunito Sans", sans-serif;
+    color: #3d3d3d;
+    -webkit-font-smoothing: antialiased;
+}
+
+.pagina-admin h1,
+.pagina-admin h2,
+.pagina-admin h3,
+.pagina-admin h4,
+.pagina-admin h5,
+.pagina-admin h6 {
+    font-family: "Nunito Sans", sans-serif;
+    color: var(--mf-negro);
+    font-weight: 700;
+}
+
+.pagina-admin .bg-light {
+    background-color: var(--mf-beige) !important;
+}
+
+.pagina-admin .text-muted {
+    color: #707070 !important;
+}
+
+/* ---------- Barra lateral ---------- */
+
+.pagina-admin aside.bg-dark {
+    background-color: var(--mf-negro) !important;
+}
+
+.pagina-admin aside h4 {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.pagina-admin aside .text-secondary {
+    letter-spacing: 2px;
+    color: #b7b7b7 !important;
+}
+
+.pagina-admin aside hr {
+    border-color: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+}
+
+.pagina-admin aside .nav-link {
+    color: #b7b7b7 !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    padding: 10px 0 10px 14px;
+    border-left: 3px solid transparent;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.pagina-admin aside .nav-link:hover,
+.pagina-admin aside .nav-link.active {
+    color: #ffffff !important;
+    background: transparent;
+    border-left-color: var(--mf-rojo);
+}
+
+/* ---------- Botones ---------- */
+
+.pagina-admin .btn {
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 11px 22px;
+    transition: all 0.3s;
+}
+
+.pagina-admin .btn-sm {
+    padding: 7px 14px;
+    letter-spacing: 1px;
+}
+
+.pagina-admin .btn-primary,
+.pagina-admin .btn-dark {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-primary:hover,
+.pagina-admin .btn-primary:focus,
+.pagina-admin .btn-primary:active,
+.pagina-admin .btn-dark:hover {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn-outline-primary,
+.pagina-admin .btn-outline-secondary,
+.pagina-admin .btn-outline-dark {
+    color: var(--mf-negro);
+    border-color: var(--mf-borde);
+    background: transparent;
+}
+
+.pagina-admin .btn-outline-primary:hover,
+.pagina-admin .btn-outline-secondary:hover,
+.pagina-admin .btn-outline-dark:hover {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-success {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+}
+
+.pagina-admin .btn-success:hover {
+    background-color: var(--mf-rojo);
+    border-color: var(--mf-rojo);
+}
+
+.pagina-admin .btn-secondary {
+    background-color: #ffffff;
+    border-color: var(--mf-borde);
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn-secondary:hover {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .btn-danger,
+.pagina-admin .btn-outline-danger {
+    border-radius: 0;
+}
+
+/* ---------- Tarjetas, tablas y formularios ---------- */
+
+.pagina-admin .card {
+    border-radius: 0;
+    border: 1px solid var(--mf-borde) !important;
+    box-shadow: none !important;
+}
+
+.pagina-admin .table > :not(caption) > * > * {
+    border-bottom-color: #f2f2f2;
+}
+
+.pagina-admin .table thead th {
+    color: var(--mf-negro);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--mf-negro);
+}
+
+.pagina-admin .table-hover > tbody > tr:hover > * {
+    background-color: var(--mf-beige);
+    color: inherit;
+}
+
+.pagina-admin .form-label,
+.pagina-admin label {
+    color: var(--mf-negro);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.pagina-admin .form-control,
+.pagina-admin .form-select {
+    border-radius: 0;
+    border-color: var(--mf-borde);
+    min-height: 46px;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .form-control:focus,
+.pagina-admin .form-select:focus {
+    border-color: var(--mf-negro);
+    box-shadow: none;
+}
+
+.pagina-admin .form-check-input:checked {
+    background-color: var(--mf-negro);
+    border-color: var(--mf-negro);
+}
+
+.pagina-admin .badge {
+    border-radius: 0;
+    letter-spacing: 1px;
+}
+
+.pagina-admin .modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.pagina-admin a:not(.btn):not(.nav-link) {
+    color: var(--mf-negro);
+}
+
+.pagina-admin a:not(.btn):not(.nav-link):hover {
+    color: var(--mf-rojo);
+}
+
+.pagina-admin aside .btn-outline-light {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.pagina-admin aside .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: var(--mf-negro);
+}
+
+.pagina-admin .btn:hover,
+.pagina-admin aside .nav-link:hover {
+    text-decoration: none;
+}
+
+.pagina-admin .btn-primary,
+.pagina-admin .btn-primary:hover,
+.pagina-admin .btn-dark,
+.pagina-admin .btn-dark:hover,
+.pagina-admin .btn-success,
+.pagina-admin .btn-success:hover,
+.pagina-admin .btn-danger,
+.pagina-admin .btn-danger:hover {
+    color: #ffffff;
+}
+
+/* ---------- Páginas con tarjetas de acceso (inicio admin) ---------- */
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-card {
+    background-color: var(--mf-beige);
+    padding: 40px;
+    text-align: center;
+    border-radius: 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.admin-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* ---------- Pie ---------- */
+
+.pagina-admin footer {
+    margin-top: 50px;
+    padding: 25px;
+    text-align: center;
+    background-color: var(--mf-negro);
+    color: #ffffff;
+}
+
+.pagina-admin .form-check-label {
+    font-size: 15px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+/* El botón de la barra lateral debe caber en su ancho */
+.pagina-admin aside .position-absolute {
+    width: 100%;
+}
+
+.pagina-admin aside .btn {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    white-space: normal;
+}
+
+.pagina-admin aside {
+    position: relative;
+}
+
+.pagina-admin .imagen-producto-admin {
+    max-height: 400px;
+}
+
+.pagina-admin .imagen-eliminar-producto {
+    max-width: 180px;
+}
+
+/* =====================================================================
+   PANEL ADMINISTRATIVO - identidad Tu Polera
+   Comparte paleta y tipografía con la tienda (variables --tp-*).
+   ===================================================================== */
+
+.pagina-admin .admin-contenido {
+    background: var(--tp-beige, #f3f2ee);
+    min-width: 0;
+}
+
+.admin-titulo {
+    font-size: clamp(24px, 3.5vw, 32px);
+    font-weight: 900;
+    color: var(--tp-negro, #111111);
+    margin-bottom: 4px;
+}
+
+.admin-subtitulo {
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-seccion-titulo {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+/* ---------- Barra lateral ---------- */
+
+.pagina-admin aside.admin-sidebar {
+    background: var(--tp-negro, #111111);
+    position: static;
+}
+
+.admin-sidebar-contenido {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 24px 16px;
+}
+
+@media (min-width: 768px) {
+    .pagina-admin aside.admin-sidebar .admin-sidebar-contenido {
+        position: sticky;
+        top: 0;
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+}
+
+.admin-sidebar-cabecera {
+    padding: 0 8px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 16px;
+}
+
+.admin-sidebar-etiqueta {
+    margin: 12px 0 0;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.admin-sidebar-menu {
+    flex: 1;
+    gap: 2px;
+}
+
+.pagina-admin .admin-sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.pagina-admin .admin-sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.pagina-admin .admin-sidebar .nav-link.active {
+    background: var(--tp-rojo, #e53637);
+    color: #ffffff;
+}
+
+.admin-sidebar-pie {
+    margin-top: 16px;
+}
+
+.admin-sidebar-pie .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* ---------- Tarjetas y bloques ---------- */
+
+.admin-tarjeta {
+    background: #ffffff;
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 14px rgba(17, 17, 17, 0.05);
+}
+
+.admin-tarjeta-titulo {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.admin-bloque {
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 10px;
+    padding: 16px;
+    background: #fbfbf9;
+}
+
+.admin-bloque-titulo {
+    float: none;
+    width: auto;
+    padding: 0 8px;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-ayuda {
+    font-size: 13px;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-fila-config,
+.admin-variante {
+    background: #ffffff;
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.admin-variante-titulo {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.admin-tallas-selector {
+    margin-bottom: 12px;
+}
+
+/* ---------- Imágenes y vista previa ---------- */
+
+.admin-vista-previa {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: var(--tp-beige, #f3f2ee);
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 10px;
+}
+
+.admin-vista-previa-vacia {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tp-suave, #6b6b6b);
+    font-size: 14px;
+}
+
+.admin-miniatura {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    background: var(--tp-beige, #f3f2ee);
+    border-radius: 8px;
+}
+
+.admin-producto-celda {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-destacado-imagen {
+    height: 220px;
+    object-fit: contain;
+    padding: 12px;
+}
+
+.admin-stock-celda {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+/* ---------- Categorías ---------- */
+
+.admin-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0 0 12px;
+}
+
+.admin-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--tp-negro, #111111);
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 4px 6px 4px 14px;
+    font-weight: 700;
+}
+
+.admin-chip-quitar {
+    border: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    line-height: 1;
+}
+
+.admin-chip-quitar:hover {
+    background: var(--tp-rojo, #e53637);
+}
+
+.admin-lista-categorias {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-categoria-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--tp-borde, #e1e1e1);
+}
+
+.admin-categoria-item:last-child {
+    border-bottom: 0;
+}
+
+.admin-categoria-imagen {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.admin-categoria-info h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.admin-categoria-info p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-categoria-info small {
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-categoria-acciones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ---------- Inicio del panel ---------- */
+
+.admin-portada {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+    background: var(--tp-negro, #111111);
+    color: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 32px;
+}
+
+.admin-portada > div {
+    flex: 1 1 260px;
+}
+
+.admin-portada h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.admin-portada p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.admin-portada .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagina-admin a.admin-estadistica,
+.pagina-admin a.admin-acceso {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--tp-negro, #111111);
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pagina-admin a.admin-estadistica:hover,
+.pagina-admin a.admin-acceso:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(17, 17, 17, 0.1);
+    color: var(--tp-negro, #111111);
+}
+
+.admin-estadistica-titulo {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-estadistica-valor {
+    display: block;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.admin-estadistica small {
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-estadistica-icono,
+.admin-acceso-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: var(--tp-beige, #f3f2ee);
+}
+
+.admin-color-primary { background: #e7efff; color: #1d4fb8; }
+.admin-color-success { background: #e3f4e8; color: #1d6b37; }
+.admin-color-danger { background: #fde8e8; color: #b42323; }
+.admin-color-warning { background: #fff3d6; color: #8a6100; }
+.admin-color-info { background: #def4f8; color: #0b6679; }
+.admin-color-secondary { background: #ececec; color: #444444; }
+
+.pagina-admin a.admin-acceso {
+    align-items: center;
+}
+
+.admin-acceso > div {
+    flex: 1;
+}
+
+.admin-acceso h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0 0 2px;
+}
+
+.admin-acceso p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-acceso-flecha {
+    color: var(--tp-rojo, #e53637);
+}
+
+.admin-pie {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--tp-borde, #e1e1e1);
+    font-size: 13px;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+/* ---------- Productos críticos ---------- */
+
+.admin-resumen {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid var(--tp-borde, #e1e1e1);
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.admin-resumen strong {
+    display: block;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.admin-resumen span {
+    font-size: 14px;
+    color: var(--tp-suave, #6b6b6b);
+}
+
+.admin-resumen-peligro { border-left: 5px solid var(--tp-rojo, #e53637); }
+.admin-resumen-alerta { border-left: 5px solid #f0a500; }
+
+.admin-resumen-formulario {
+    display: block;
+}
+
+/* ---------- Móviles ---------- */
+
+@media (max-width: 767.98px) {
+    .admin-sidebar-contenido {
+        padding: 16px;
+    }
+
+    .admin-sidebar-menu {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+    }
+
+    .admin-categoria-item {
+        grid-template-columns: 48px 1fr;
+    }
+
+    .admin-categoria-acciones {
+        grid-column: 1 / -1;
+        flex-direction: row;
+    }
+
+    .admin-portada {
+        padding: 20px;
+    }
+}

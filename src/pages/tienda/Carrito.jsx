@@ -1,0 +1,392 @@
+
+import { Link } from "react-router-dom";
+
+import NavbarTienda from "../../components/tienda/NavbarTienda";
+import FooterTienda from "../../components/tienda/FooterTienda";
+import Icono from "../../components/Iconos";
+import useCarrito from "../../assets/js/tienda/useCarrito";
+import { obtenerRutaImagen } from "../../assets/js/tienda/catalogo";
+
+function Carrito() {
+    const {
+        usuario,
+        carrito,
+        mostrarPago,
+        setMostrarPago,
+        mensaje,
+        tipoMensaje,
+        cargando,
+        subtotal,
+        envio,
+        total,
+        formatearPrecio,
+        obtenerPrecioFinal,
+        direccionTexto,
+        setDireccionTexto,
+        destino,
+        calculoDespacho,
+        calculandoDespacho,
+        errorDespacho,
+        buscarDireccion,
+        usarTarifaBase,
+        cambiarDireccion,
+        configuracionDespacho,
+        mapasConfigurado,
+        sumarCantidad,
+        restarCantidad,
+        eliminarProducto,
+        procesarPago
+    } = useCarrito();
+
+    if (cargando || !usuario) {
+        return null;
+    }
+
+    return (
+        <div className="pagina-tienda">
+            <NavbarTienda />
+
+            <main className="container py-5">
+
+                {mensaje && (
+                    <div
+                        className={`alert alert-${tipoMensaje}`}
+                        role="alert"
+                    >
+                        {mensaje}
+                    </div>
+                )}
+
+                <div className="row g-4">
+                    {/* Productos del carrito */}
+                    <div className="col-12 col-lg-8">
+                        {carrito.length === 0 ? (
+                            <div className="carrito-vacio">
+                                <h2>Tu carrito está vacío</h2>
+
+                                <p>
+                                    Agrega productos para comenzar tu compra.
+                                </p>
+
+                                <Link
+                                    to="/productos"
+                                    className="btn btn-tienda"
+                                >
+                                    Ver productos
+                                </Link>
+                            </div>
+                        ) : (
+                            carrito.map((producto, indice) => {
+                                const precio =
+                                    Number(producto.precio) || 0;
+
+                                const descuento = Math.min(
+                                    100,
+                                    Math.max(
+                                        0,
+                                        Number(producto.descuento) || 0
+                                    )
+                                );
+
+                                const precioFinal =
+                                    obtenerPrecioFinal(producto);
+
+                                const cantidad = Math.max(
+                                    1,
+                                    Number(producto.cantidad) || 1
+                                );
+
+                                return (
+                                    <article
+                                        className="carrito-producto"
+                                        key={`${producto.id ?? producto.nombre}-${indice}`}
+                                    >
+                                        <div className="carrito-imagen">
+                                            {producto.imagen ? (
+                                                <img
+                                                    src={obtenerRutaImagen(producto.imagen)}
+                                                    alt={
+                                                        producto.nombre ||
+                                                        "Producto"
+                                                    }
+                                                />
+                                            ) : (
+                                                <div className="carrito-sin-imagen">
+                                                    Sin imagen
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="carrito-detalle">
+                                            <h2>
+                                                {producto.nombre || "Producto"}
+                                            </h2>
+
+                                            <p>
+                                                <strong>Talla:</strong>{" "}
+                                                {producto.talla || "Única"}
+                                            </p>
+
+                                            {descuento > 0 ? (
+                                                <>
+                                                    <p className="carrito-precio-original">
+                                                        Precio original:{" "}
+                                                        <s>
+                                                            {formatearPrecio(
+                                                                precio
+                                                            )}
+                                                        </s>
+                                                    </p>
+
+                                                    <p className="carrito-descuento">
+                                                        Descuento: -{descuento}%
+                                                    </p>
+
+                                                    <p className="carrito-precio-final">
+                                                        {formatearPrecio(
+                                                            precioFinal
+                                                        )}
+                                                    </p>
+                                                </>
+                                            ) : (
+                                                <p className="carrito-precio-final">
+                                                    {formatearPrecio(
+                                                        precioFinal
+                                                    )}
+                                                </p>
+                                            )}
+
+                                            <div className="carrito-acciones">
+                                                <span>Cantidad:</span>
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-dark btn-sm"
+                                                    onClick={() =>
+                                                        restarCantidad(indice)
+                                                    }
+                                                    aria-label={`Restar una unidad de ${producto.nombre}`}
+                                                >
+                                                    −
+                                                </button>
+
+                                                <span className="carrito-cantidad">
+                                                    {cantidad}
+                                                </span>
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-dark btn-sm"
+                                                    onClick={() =>
+                                                        sumarCantidad(indice)
+                                                    }
+                                                    aria-label={`Agregar una unidad de ${producto.nombre}`}
+                                                >
+                                                    +
+                                                </button>
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-danger btn-sm"
+                                                    onClick={() =>
+                                                        eliminarProducto(indice)
+                                                    }
+                                                >
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                );
+                            })
+                        )}
+                    </div>
+
+                    {/* Resumen del pedido */}
+                    <div className="col-12 col-lg-4">
+                        <section className="carrito-despacho">
+                            <h2>
+                                <Icono nombre="camion" tamano={20} />
+                                Despacho
+                            </h2>
+
+                            {!destino ? (
+                                <form onSubmit={buscarDireccion}>
+                                    <label
+                                        htmlFor="direccionDespacho"
+                                        className="form-label"
+                                    >
+                                        Dirección de despacho (Chile)
+                                    </label>
+
+                                    <input
+                                        id="direccionDespacho"
+                                        type="text"
+                                        className="form-control mb-2"
+                                        placeholder="Calle, número, comuna"
+                                        value={direccionTexto}
+                                        onChange={evento =>
+                                            setDireccionTexto(evento.target.value)
+                                        }
+                                        required
+                                    />
+
+                                    {mapasConfigurado ? (
+                                        <button
+                                            type="submit"
+                                            className="btn btn-outline-dark w-100"
+                                            disabled={calculandoDespacho}
+                                        >
+                                            {calculandoDespacho
+                                                ? "Buscando..."
+                                                : "Buscar dirección y calcular"}
+                                        </button>
+                                    ) : (
+                                        <>
+                                            <p className="carrito-nota">
+                                                El servicio de mapas aún no está
+                                                configurado, por lo que no podemos
+                                                medir la distancia. Se aplicará la
+                                                tarifa base de despacho.
+                                            </p>
+
+                                            <button
+                                                type="button"
+                                                className="btn btn-outline-dark w-100"
+                                                onClick={usarTarifaBase}
+                                            >
+                                                Usar tarifa base
+                                            </button>
+                                        </>
+                                    )}
+
+                                    {errorDespacho && (
+                                        <p className="text-danger mt-2 mb-0" role="alert">
+                                            {errorDespacho}
+                                        </p>
+                                    )}
+                                </form>
+                            ) : (
+                                <div>
+                                    <p className="despacho-direccion">
+                                        <Icono nombre="mapa" tamano={16} />
+                                        {destino.direccion}
+                                    </p>
+
+                                    {calculoDespacho && (
+                                        <p className="carrito-nota">
+                                            {calculoDespacho.tipo === "ruta" &&
+                                                `Distancia por ruta desde nuestra bodega: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km.`}
+
+                                            {calculoDespacho.tipo === "linea_recta" &&
+                                                `Distancia estimada en línea recta: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km (no se pudo calcular la ruta).`}
+
+                                            {calculoDespacho.tipo === "tarifa_base" &&
+                                                "Se aplica la tarifa base de despacho."}
+                                        </p>
+                                    )}
+
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-dark btn-sm"
+                                        onClick={cambiarDireccion}
+                                    >
+                                        Cambiar dirección
+                                    </button>
+                                </div>
+                            )}
+
+                            {configuracionDespacho.esUbicacionPrueba && (
+                                <p className="carrito-nota">
+                                    La bodega de origen es una ubicación de prueba.
+                                </p>
+                            )}
+                        </section>
+
+                        <section className="carrito-resumen">
+                            <h2>Resumen del pedido</h2>
+
+                            <div className="carrito-linea-resumen">
+                                <span>Subtotal</span>
+                                <span>
+                                    {formatearPrecio(subtotal)}
+                                </span>
+                            </div>
+
+                            <div className="carrito-linea-resumen">
+                                <span>Envío</span>
+                                <span>
+                                    {calculoDespacho
+                                        ? formatearPrecio(envio)
+                                        : "Ingresa tu dirección"}
+                                </span>
+                            </div>
+
+                            <hr />
+
+                            <div className="carrito-linea-resumen carrito-total">
+                                <strong>Total</strong>
+                                <strong>
+                                    {formatearPrecio(total)}
+                                </strong>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="btn btn-tienda w-100 mt-3"
+                                disabled={carrito.length === 0 || !calculoDespacho}
+                                onClick={() => {
+                                    setMostrarPago(!mostrarPago);
+                                }}
+                            >
+                                Proceder al pago
+                            </button>
+
+                            {mostrarPago && carrito.length > 0 && (
+                                <div className="carrito-simulacion-pago">
+                                    <h3>Simulación de pago</h3>
+
+                                    <p>
+                                        Selecciona un resultado para probar
+                                        el registro de la compra.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="btn btn-success w-100 mb-2"
+                                        onClick={() =>
+                                            procesarPago("Aprobado")
+                                        }
+                                    >
+                                        Simular pago aprobado
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-danger w-100"
+                                        onClick={() =>
+                                            procesarPago("Rechazado")
+                                        }
+                                    >
+                                        Simular pago rechazado
+                                    </button>
+                                </div>
+                            )}
+
+                            <Link
+                                to="/productos"
+                                className="btn btn-outline-dark w-100 mt-2"
+                            >
+                                Seguir comprando
+                            </Link>
+                        </section>
+                    </div>
+                </div>
+            </main>
+
+            <FooterTienda />
+        </div>
+    );
+}
+
+export default Carrito;
