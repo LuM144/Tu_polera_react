@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import useProductos, {
     crearSlug
 } from "../../assets/js/tienda/useProductos";
+import useAnimacionesProductos from "../../assets/js/tienda/useAnimacionesProductos";
 
 function Productos() {
     const {
@@ -83,6 +84,11 @@ function Productos() {
         });
     }, [productos, categorias, filtroTipo, filtroColor, filtroDescuento]);
 
+    // Inicializar las animaciones de productos.
+    const raizAnimaciones = useAnimacionesProductos(
+        productosFiltrados.map((producto) => producto.id).join("|")
+    );
+
     // Abrir y cerrar el modal del producto seleccionado.
     function abrirProducto(producto) {
         setProductoSeleccionado(producto);
@@ -100,18 +106,25 @@ function Productos() {
     }
 
     return (
-        <div className="pagina-tienda">
+        <div className="pagina-tienda" ref={raizAnimaciones}>
             <NavbarTienda />
             <main>
-                
+
                 {/* ENCABEZADO */}
                 <section className="portada-pagina">
                     <div className="container">
-                        <span className="etiqueta">Productos</span>
-                    
-                        <h1>Encuentra tu estilo</h1>
-                    
-                        <p>
+                        <span
+                            className="etiqueta"
+                            data-anim="portada-item"
+                        >
+                            Productos
+                        </span>
+
+                        <h1 data-anim="portada-item">
+                            Encuentra tu estilo
+                        </h1>
+
+                        <p data-anim="portada-item">
                             Descubre poleras, polerones, gorras y más prendas
                             básicas para tu día a día.
                         </p>
@@ -121,7 +134,10 @@ function Productos() {
                 <section className="container py-5">
 
                     {/* FILTROS */}
-                    <div className="row g-4 mb-4">
+                    <div
+                        className="row g-4 mb-4"
+                        data-anim="filtros"
+                    >
 
                         {/* FILTRO POR CATEGORÍA */}
                         <div className="col-12 col-md-6 col-lg-4">
@@ -266,6 +282,7 @@ function Productos() {
                                     <div
                                         className="col-12 col-md-6 col-lg-4"
                                         key={producto.id}
+                                        data-anim="tarjeta"
                                     >
                                         <article className="tarjeta-producto h-100">
                                             <img

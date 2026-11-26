@@ -152,11 +152,10 @@
     border: 1px solid var(--mf-borde);
     background-color: #ffffff;
     overflow: hidden;
-    transition: transform 0.3s, border-color 0.3s;
+    transition: border-color 0.3s;
 }
 
 .pagina-tienda .tarjeta-categoria:hover {
-    transform: translateY(-5px);
     border-color: var(--mf-negro);
 }
 
@@ -198,12 +197,11 @@
     height: 100%;
     border: 1px solid var(--mf-borde);
     background-color: #ffffff;
-    transition: border-color 0.3s, transform 0.3s;
+    transition: border-color 0.3s;
 }
 
 .pagina-tienda .tarjeta-producto:hover {
     border-color: var(--mf-negro);
-    transform: translateY(-3px);
 }
 
 .pagina-tienda .tarjeta-producto .imagen-producto {

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useIndex from "../../assets/js/tienda/useIndex";
+import useAnimacionesIndex from "../../assets/js/tienda/useAnimacionesIndex";
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 
@@ -15,6 +16,11 @@ function Home() {
         obtenerRutaImagen
     } = useIndex();
 
+    const raizAnimaciones = useAnimacionesIndex({
+        totalCategorias: categorias.length,
+        totalDestacados: productosDestacados.length
+    });
+
     function crearSlug(nombre) {
         return nombre
             .toLowerCase()
@@ -24,7 +30,7 @@ function Home() {
     }
 
     return (
-        <div className="pagina-tienda">
+        <div className="pagina-tienda" ref={raizAnimaciones}>
             <NavbarTienda />
 
             {/* CARRUSEL PRINCIPAL */}
@@ -33,6 +39,7 @@ function Home() {
                     id="carruselHome"
                     className="carousel slide carousel-home mx-auto"
                     data-bs-ride="carousel"
+                    data-anim="banner"
                 >
                     <div className="carousel-indicators">
                         {bannersIniciales.map((banner, indice) => (
@@ -63,15 +70,25 @@ function Home() {
                                 />
 
                                 <div className="carousel-caption bg-dark bg-opacity-50 p-3">
-                                    <h1 className="text-white">
+                                    <h1
+                                        className="text-white"
+                                        data-anim="banner-texto"
+                                    >
                                         {banner.titulo}
                                     </h1>
 
-                                    <p className="text-white">
+                                    <p
+                                        className="text-white"
+                                        data-anim="banner-texto"
+                                    >
                                         {banner.descripcion}
                                     </p>
 
-                                    <Link to="/productos" className="btn btn-light">
+                                    <Link
+                                        to="/productos"
+                                        className="btn btn-light"
+                                        data-anim="banner-texto"
+                                    >
                                         Ver productos
                                     </Link>
                                 </div>
@@ -103,10 +120,12 @@ function Home() {
                 </div>
             </section>
 
-
             {/* CATEGORÍAS */}
             <section className="container my-5">
-                <div className="encabezado-tienda text-center">
+                <div
+                    className="encabezado-tienda text-center"
+                    data-anim="encabezado"
+                >
                     <span className="etiqueta">Encuentra tu estilo</span>
 
                     <h2 className="titulo-seccion">
@@ -126,6 +145,7 @@ function Home() {
                     <div
                         id="carruselCategorias"
                         className="carousel slide carrusel-categorias"
+                        data-anim="carrusel-categorias"
                     >
                         <div className="carousel-inner">
                             {Array.from(
@@ -146,6 +166,7 @@ function Home() {
                                             <div
                                                 key={categoria.id ?? categoria.nombre}
                                                 className="col-10 col-sm-8 col-md-4"
+                                                data-anim="tarjeta"
                                             >
                                                 <Link
                                                     to={`/productos?categoria=${encodeURIComponent(
@@ -164,11 +185,11 @@ function Home() {
 
                                                         <div className="contenido-categoria text-center">
                                                             <h3>{categoria.nombre}</h3>
-                                                        
+
                                                             <p>
                                                                 {categoria.descripcion ?? ""}
                                                             </p>
-                                                        
+
                                                             <span className="enlace-categoria">
                                                                 Ver categoría →
                                                             </span>
@@ -181,7 +202,7 @@ function Home() {
                                 </div>
                             ))}
                         </div>
-                        
+
                         {categorias.length > 3 && (
                             <>
                                 <button
@@ -196,7 +217,7 @@ function Home() {
                                         Anterior
                                     </span>
                                 </button>
-                        
+
                                 <button
                                     className="carousel-control-next"
                                     type="button"
@@ -215,10 +236,12 @@ function Home() {
                 )}
             </section>
 
-
             {/* PRODUCTOS DESTACADOS */}
             <section className="container my-5">
-                <div className="encabezado-tienda text-center">
+                <div
+                    className="encabezado-tienda text-center"
+                    data-anim="encabezado"
+                >
                     <span className="etiqueta">Selección especial</span>
 
                     <h2 className="titulo-seccion">
@@ -234,6 +257,7 @@ function Home() {
                     id="carruselProductos"
                     className="carousel slide"
                     data-bs-ride="carousel"
+                    data-anim="carrusel-destacados"
                 >
                     <div className="carousel-inner">
                         {productosDestacados.length === 0 ? (
@@ -280,6 +304,7 @@ function Home() {
                                                 <div
                                                     className="col-12 col-md-4"
                                                     key={producto.id}
+                                                    data-anim="tarjeta"
                                                 >
                                                     <div className="tarjeta-producto">
                                                         <img
@@ -370,7 +395,10 @@ function Home() {
 
             {/* NOTICIAS */}
             <section className="container my-5">
-                <div className="encabezado-tienda text-center">
+                <div
+                    className="encabezado-tienda text-center"
+                    data-anim="encabezado"
+                >
                     <span className="etiqueta">Novedades</span>
 
                     <h2 className="titulo-seccion">
@@ -386,6 +414,7 @@ function Home() {
                     id="carruselNoticias"
                     className="carousel slide carousel-home carousel-noticias mx-auto"
                     data-bs-ride="carousel"
+                    data-anim="noticias"
                 >
                     <div className="carousel-indicators">
                         {noticiasIniciales.map((noticia, indice) => (
@@ -451,7 +480,7 @@ function Home() {
                         type="button"
                         data-bs-target="#carruselNoticias"
                         data-bs-slide="next"
-                        aria-label="Noticia siguiente"
+                        aria-label="Siguiente noticia"
                     >
                         <span className="carousel-control-next-icon"></span>
                         <span className="visually-hidden">Siguiente</span>
@@ -459,9 +488,7 @@ function Home() {
                 </div>
             </section>
 
-        
             <FooterTienda />
-
         </div>
     );
 }

@@ -1,10 +1,11 @@
-
 import { useState } from "react";
 
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 import Icono from "../../components/Iconos";
 import EditorTiptap from "../../components/EditorTipTap";
+import DOMPurify from "dompurify";
+
 
 import {
     guardarJSON,
@@ -115,12 +116,30 @@ function Contacto() {
             return;
         }
 
-        const mensajes = leerJSON("mensajesContacto", []);
+    // Sanitizar el contenido HTML del mensaje
+    const mensajeSeguro = DOMPurify.sanitize(datos.mensaje, {
+        ALLOWED_TAGS: [
+            "p",
+            "br",
+            "strong",
+            "b",
+            "em",
+            "i",
+            "h2",
+            "ul",
+            "ol",
+            "li"
+        ],
+        ALLOWED_ATTR: []
+    });
+
+    const mensajes = leerJSON("mensajesContacto", []);
 
         guardarJSON("mensajesContacto", [
             ...mensajes,
             {
                 ...datos,
+                mensaje: mensajeSeguro,
                 fecha: new Date().toISOString()
             }
         ]);
