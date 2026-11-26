@@ -1,0 +1,122 @@
+
+/* =====================================================================
+   Selector de dirección manual y estimación de despacho (/carrito)
+   ===================================================================== */
+
+.selector-direccion-busqueda {
+    position: relative;
+}
+
+.selector-direccion-sugerencias {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    max-height: 260px;
+    margin: 4px 0 0;
+    padding: 4px 0;
+    overflow-y: auto;
+    list-style: none;
+    background: #ffffff;
+    border: 1px solid var(--tp-borde);
+    border-radius: 8px;
+    box-shadow: var(--tp-sombra);
+}
+
+.selector-direccion-sugerencias li {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.selector-direccion-sugerencias li strong {
+    color: var(--tp-negro);
+    font-size: 14px;
+}
+
+.selector-direccion-sugerencias li span {
+    color: var(--tp-suave);
+    font-size: 12px;
+}
+
+.selector-direccion-sugerencias li:hover,
+.selector-direccion-sugerencias li.activa {
+    background: var(--tp-beige);
+}
+
+.selector-direccion-mapa {
+    width: 100%;
+    height: 260px;
+    margin-top: 12px;
+    background: var(--tp-beige);
+    border: 1px solid var(--tp-borde);
+    border-radius: 8px;
+}
+
+.selector-direccion-resumen {
+    margin-top: 8px;
+}
+
+.selector-direccion-datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin: 0 0 6px;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+}
+
+.selector-direccion-datos span {
+    margin-right: 4px;
+    color: var(--tp-suave);
+    font-weight: 700;
+}
+
+.selector-direccion-estados {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4 !important;
+}
+
+.selector-direccion-estados .estado-verificada {
+    color: #1b6e3a;
+}
+
+.selector-direccion-estados .estado-pendiente {
+    color: #8a6d00;
+}
+
+.despacho-estimacion {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--tp-borde);
+}
+
+.despacho-estimacion h3 {
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.despacho-estimacion-valor {
+    margin: 0;
+    color: var(--tp-negro);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.despacho-aviso-prueba {
+    margin: 8px 0 0;
+    padding: 10px 12px;
+    background: var(--tp-beige);
+    border-left: 4px solid var(--tp-rojo);
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    line-height: 1.5 !important;
+}

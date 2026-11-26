@@ -3,22 +3,62 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registrarCompra } from "./compras";
 import {
+    cargarCategorias,
     descontarStock,
+    obtenerCategoria,
     obtenerStockTalla,
     cargarProductos,
     revisarStockCarrito
 } from "./catalogo";
+import { crearInstantaneaItem } from "./fichas";
 import {
     calcularPrecioDespacho,
     cargarConfiguracionDespacho,
     cargarDestinoDespacho,
-    guardarDestinoDespacho
+    guardarDestinoDespacho,
+    esDestinoDespachoValido
 } from "./despacho";
-import {
-    calcularDistanciaRuta,
-    geocodificarDireccion,
-    mapasConfigurado
-} from "../../../services/googleMaps";
+
+// Leer y validar la sesión guardada.
+function cargarUsuarioActual() {
+    const usuarioGuardado = localStorage.getItem("usuarioActual");
+
+    if (!usuarioGuardado) {
+        return null;
+    }
+
+    try {
+        const usuario = JSON.parse(usuarioGuardado);
+
+        if (
+            !usuario ||
+            !usuario.nombre ||
+            !usuario.rol
+        ) {
+            return null;
+        }
+
+        return usuario;
+    } catch {
+        return null;
+    }
+}
+
+// Leer el carrito guardado.
+function cargarCarritoGuardado() {
+    try {
+        const carritoGuardado = JSON.parse(
+            localStorage.getItem("carrito") || "[]"
+        );
+
+        return Array.isArray(carritoGuardado)
+            ? carritoGuardado
+            : [];
+    } catch (error) {
+        console.error("Error al cargar el carrito:", error);
+        return [];
+    }
+}
 
 function formatearPrecio(precio) {
     return "$" + Number(precio || 0).toLocaleString("es-CL");
@@ -38,73 +78,31 @@ function obtenerPrecioFinal(producto) {
 function useCarrito() {
     const navigate = useNavigate();
 
-    const [usuario, setUsuario] = useState(null);
-    const [carrito, setCarrito] = useState([]);
+    const [usuario] = useState(() => cargarUsuarioActual());
+    const [carrito, setCarrito] = useState(() =>
+        cargarCarritoGuardado()
+    );
     const [mostrarPago, setMostrarPago] = useState(false);
     const [mensaje, setMensaje] = useState("");
     const [tipoMensaje, setTipoMensaje] = useState("");
-    const [cargando, setCargando] = useState(true);
+    const [cargando] = useState(false);
 
     // Despacho: destino elegido y costo calculado.
     const [configuracionDespacho] = useState(cargarConfiguracionDespacho);
-    const [direccionTexto, setDireccionTexto] = useState("");
     const [destino, setDestino] = useState(null);
     const [calculoDespacho, setCalculoDespacho] = useState(null);
     const [calculandoDespacho, setCalculandoDespacho] = useState(false);
     const [errorDespacho, setErrorDespacho] = useState("");
 
-    // Comprobar la sesión y cargar los productos.
+    // Comprobar la sesión. Si no existe o es inválida, redirigir al login.
     useEffect(() => {
-        const usuarioGuardado = localStorage.getItem("usuarioActual");
-
-        if (!usuarioGuardado) {
-            navigate("/login", { replace: true });
-            return;
-        }
-
-        let usuarioActual;
-
-        try {
-            usuarioActual = JSON.parse(usuarioGuardado);
-        } catch {
+        if (!usuario) {
             localStorage.removeItem("usuarioActual");
             navigate("/login", { replace: true });
-            return;
         }
+    }, [navigate, usuario]);
 
-        if (
-            !usuarioActual ||
-            !usuarioActual.nombre ||
-            !usuarioActual.rol
-        ) {
-            localStorage.removeItem("usuarioActual");
-            navigate("/login", { replace: true });
-            return;
-        }
-
-        setUsuario(usuarioActual);
-
-        // Un carrito inválido no debería cerrar la sesión.
-        try {
-            const carritoGuardado = JSON.parse(
-                localStorage.getItem("carrito") || "[]"
-            );
-
-            setCarrito(
-                Array.isArray(carritoGuardado)
-                    ? carritoGuardado
-                    : []
-            );
-        } catch (error) {
-            console.error("Error al cargar el carrito:", error);
-            setCarrito([]);
-        }
-
-        setCargando(false);
-    }, [navigate]);
-
-    // Recupera el destino guardado y recalcula su costo con la
-    // configuración vigente del centro de distribución.
+    // Recuperar el destino guardado y calcular la tarifa de prueba.
     useEffect(() => {
         const destinoGuardado = cargarDestinoDespacho();
 
@@ -112,8 +110,7 @@ function useCarrito() {
             return;
         }
 
-        setDireccionTexto(destinoGuardado.direccion);
-        calcularDespacho(destinoGuardado);
+        aplicarDestino(destinoGuardado);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -219,80 +216,56 @@ function useCarrito() {
 
     const total = subtotal + envio;
 
-    // Calcula la distancia por ruta y el precio del despacho.
-    async function calcularDespacho(datosDestino) {
-        setCalculandoDespacho(true);
-        setErrorDespacho("");
+    // Calcula el despacho utilizando la tarifa fija de prueba.
+    // No necesita coordenadas ni servicios externos.
+    function calcularDespacho(datosDestino) {
+        const precio = calcularPrecioDespacho(
+            0,
+            configuracionDespacho
+        );
 
-        try {
-            const { distanciaKm, tipo } = await calcularDistanciaRuta(
-                {
-                    latitud: configuracionDespacho.latitud,
-                    longitud: configuracionDespacho.longitud
-                },
-                datosDestino
-            );
-
-            setDestino(datosDestino);
-
-            setCalculoDespacho({
-                distanciaKm,
-                tipo,
-                precio: calcularPrecioDespacho(distanciaKm, configuracionDespacho)
-            });
-        } catch (error) {
-            setErrorDespacho(error.message);
-        } finally {
-            setCalculandoDespacho(false);
-        }
-    }
-
-    // Busca la dirección escrita, valida que esté en Chile y calcula el costo.
-    async function buscarDireccion(evento) {
-        evento?.preventDefault();
-
-        setErrorDespacho("");
-        setCalculoDespacho(null);
-        setDestino(null);
-        setCalculandoDespacho(true);
-
-        try {
-            const resultado = await geocodificarDireccion(direccionTexto);
-
-            guardarDestinoDespacho(resultado);
-            setDireccionTexto(resultado.direccion);
-
-            await calcularDespacho(resultado);
-        } catch (error) {
-            setErrorDespacho(error.message);
-            setCalculandoDespacho(false);
-        }
-    }
-
-    // Sin servicio de mapas solo se puede aplicar la tarifa base,
-    // y se informa claramente al cliente.
-    function usarTarifaBase() {
-        const direccion = direccionTexto.trim();
-
-        if (direccion.length < 5) {
-            setErrorDespacho("Escribe una dirección con calle y número.");
-            return;
-        }
-
-        setErrorDespacho("");
-        setDestino({ direccion, latitud: null, longitud: null });
+        setDestino(datosDestino);
 
         setCalculoDespacho({
             distanciaKm: null,
-            tipo: "tarifa_base",
-            precio: calcularPrecioDespacho(0, configuracionDespacho)
+            tipo: "tarifa_fija",
+            precio
         });
+
+        setCalculandoDespacho(false);
+        setErrorDespacho("");
     }
 
+    // Aplica la dirección y calcula inmediatamente el precio fijo.
+    function aplicarDestino(nuevoDestino) {
+        setCalculoDespacho(null);
+        calcularDespacho(nuevoDestino);
+    }
+
+    // Recibe una dirección manual o una dirección previamente verificada.
+    function seleccionarDestino(nuevoDestino) {
+        if (!esDestinoDespachoValido(nuevoDestino)) {
+            setErrorDespacho(
+                "La dirección ingresada no es válida. Revisa sus datos."
+            );
+            return;
+        }
+
+        aplicarDestino(nuevoDestino);
+
+        if (!guardarDestinoDespacho(nuevoDestino)) {
+            setErrorDespacho(
+                "No fue posible guardar la dirección en este navegador. Podrías tener que ingresarla de nuevo si recargas la página."
+            );
+        }
+    }
+
+    // Eliminar la dirección y su cálculo.
     function cambiarDireccion() {
         guardarDestinoDespacho(null);
         setDestino(null);
         setCalculoDespacho(null);
+        setCalculandoDespacho(false);
         setErrorDespacho("");
     }
 
@@ -302,8 +275,19 @@ function useCarrito() {
             return;
         }
 
-        if (!destino || !calculoDespacho) {
-            setMensaje("Ingresa la dirección de despacho antes de pagar.");
+        if (calculandoDespacho) {
+            setMensaje(
+                "Espera a que termine el cálculo de la estimación de despacho."
+            );
+            setTipoMensaje("warning");
+            return;
+        }
+
+        // Se necesita una dirección válida y una estimación de despacho.
+        if (!esDestinoDespachoValido(destino) || !calculoDespacho) {
+            setMensaje(
+                "Ingresa una dirección de despacho válida antes de pagar."
+            );
             setTipoMensaje("danger");
             return;
         }
@@ -343,6 +327,26 @@ function useCarrito() {
             return;
         }
 
+        // Catálogo vigente en el momento de la compra.
+        let catalogoActual;
+
+        try {
+            const categorias = cargarCategorias();
+
+            catalogoActual = {
+                categorias,
+                productos: cargarProductos(categorias)
+            };
+        } catch (error) {
+            console.error("Error al leer el catálogo:", error);
+
+            setMensaje(
+                "No se pudo preparar el registro de los productos. Inténtalo nuevamente."
+            );
+            setTipoMensaje("danger");
+            return;
+        }
+
         // Copiar los datos de los productos para conservar el historial.
         const productosComprados = carrito.map((producto) => {
             const precioOriginal = Number(producto.precio) || 0;
@@ -359,7 +363,7 @@ function useCarrito() {
 
             const precioFinal = obtenerPrecioFinal(producto);
 
-            return {
+            const itemComprado = {
                 id: producto.id ?? null,
                 nombre: producto.nombre || "Producto",
                 imagen: producto.imagen || "",
@@ -369,6 +373,28 @@ function useCarrito() {
                 descuento,
                 cantidad,
                 subtotal: precioFinal * cantidad
+            };
+
+            const productoCatalogo = catalogoActual.productos.find(
+                actual => String(actual.id) === String(producto.id)
+            );
+
+            const categoriaProducto = productoCatalogo
+                ? obtenerCategoria(
+                    catalogoActual.categorias,
+                    productoCatalogo.categoriaId
+                )
+                : null;
+
+            // Instantánea histórica de los datos del producto.
+            return {
+                ...itemComprado,
+                instantanea: crearInstantaneaItem(
+                    itemComprado,
+                    productoCatalogo ?? null,
+                    categoriaProducto,
+                    fecha
+                )
             };
         });
 
@@ -380,12 +406,13 @@ function useCarrito() {
             subtotal,
             envio,
             total,
+            // Dirección ingresada por el cliente y estimación local de prueba.
+            // El backend deberá validar la dirección y confirmar el costo definitivo.
             despacho: {
-                direccion: destino.direccion,
-                latitud: destino.latitud,
-                longitud: destino.longitud,
+                ...destino,
                 distanciaKm: calculoDespacho.distanciaKm,
                 tipoCalculo: calculoDespacho.tipo,
+                estimacionDePrueba: true,
                 origen: configuracionDespacho.direccion
             },
             items: productosComprados,
@@ -411,6 +438,16 @@ function useCarrito() {
                 ...usuario,
                 id: identificadorUsuario
             });
+
+            // El identificador que devuelve registrarCompra() es la única
+            // fuente de verdad para abrir el detalle de la compra.
+            const idCompra = Number(compraRegistrada?.id);
+
+            if (!Number.isSafeInteger(idCompra) || idCompra <= 0) {
+                throw new Error(
+                    "El identificador de la compra registrada no es válido."
+                );
+            }
 
             // Mantener el historial individual del usuario.
             const compraUsuario = {
@@ -457,6 +494,9 @@ function useCarrito() {
                     `Pago aprobado. Tu compra quedó registrada. Número de operación: ${numeroOperacion}`
                 );
                 setTipoMensaje("success");
+
+                // Abrir el detalle de la compra recién creada.
+                navigate(`/usuario/compras/${idCompra}`);
             } else {
                 // Conservar los productos para permitir otro intento.
                 setMensaje(
@@ -487,17 +527,13 @@ function useCarrito() {
         total,
         formatearPrecio,
         obtenerPrecioFinal,
-        direccionTexto,
-        setDireccionTexto,
         destino,
         calculoDespacho,
         calculandoDespacho,
         errorDespacho,
-        buscarDireccion,
-        usarTarifaBase,
+        seleccionarDestino,
         cambiarDireccion,
         configuracionDespacho,
-        mapasConfigurado: mapasConfigurado(),
         sumarCantidad,
         restarCantidad,
         eliminarProducto,

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 import Icono from "../../components/Iconos";
+import FichasPedido from "../../components/tienda/FichasPedido";
 import useMisCompras, {
     describirEstado,
     formatearFecha
@@ -86,6 +87,9 @@ function DetalleCompra({ compra, calcularTotalCompra }) {
                     Despacho a: {compra.despacho.direccion}
                 </p>
             )}
+
+            {/* Solo las compras confirmadas tienen ficha de prendas. */}
+            {compra.estado === "exitosa" && <FichasPedido compra={compra} />}
 
             <Link to="/usuario/compras" className="btn btn-outline-dark">
                 Volver a mis compras

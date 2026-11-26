@@ -1,8 +1,9 @@
+
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 import ModalProducto from "../../components/tienda/ModalProducto";
 import { obtenerStockTotal } from "../../assets/js/tienda/catalogo";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import useProductos, {
     crearSlug
@@ -22,19 +23,21 @@ function Productos() {
 
     const [parametros] = useSearchParams();
 
-    const [filtroTipo, setFiltroTipo] = useState(
-        parametros.get("categoria") || "todos"
-    );
+    const categoriaUrl = parametros.get("categoria") || "todos";
+
+    const [filtroTipo, setFiltroTipo] = useState(categoriaUrl);
+    const [categoriaAnterior, setCategoriaAnterior] = useState(categoriaUrl);
+
+    // Sincronizar la categoría cuando cambia la URL.
+    if (categoriaUrl !== categoriaAnterior) {
+        setCategoriaAnterior(categoriaUrl);
+        setFiltroTipo(categoriaUrl);
+    }
 
     const [filtroColor, setFiltroColor] = useState("todos");
     const [filtroDescuento, setFiltroDescuento] = useState("todos");
 
     const [productoSeleccionado, setProductoSeleccionado] = useState(null);
-
-    // Actualizar la categoría si cambia la URL.
-    useEffect(() => {
-        setFiltroTipo(parametros.get("categoria") || "todos");
-    }, [parametros]);
 
     // Obtener los colores existentes en los productos.
     const colores = useMemo(() => {
@@ -108,8 +111,8 @@ function Productos() {
     return (
         <div className="pagina-tienda" ref={raizAnimaciones}>
             <NavbarTienda />
-            <main>
 
+            <main>
                 {/* ENCABEZADO */}
                 <section className="portada-pagina">
                     <div className="container">
@@ -132,13 +135,11 @@ function Productos() {
                 </section>
 
                 <section className="container py-5">
-
                     {/* FILTROS */}
                     <div
                         className="row g-4 mb-4"
                         data-anim="filtros"
                     >
-
                         {/* FILTRO POR CATEGORÍA */}
                         <div className="col-12 col-md-6 col-lg-4">
                             <label
@@ -168,7 +169,6 @@ function Productos() {
                                         {categoria.nombre}
                                     </option>
                                 ))}
-
                             </select>
                         </div>
 

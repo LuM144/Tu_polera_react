@@ -74,7 +74,7 @@ export function registrarCompra(datosCompra, usuario) {
     // Historial asociado al usuario registrado.
     const claveUsuario = `comprasUsuario_${usuario.id}`;
 
-    let comprasUsuario = [];
+    let comprasUsuario;
 
     try {
         const guardadasUsuario = localStorage.getItem(claveUsuario);

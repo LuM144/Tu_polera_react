@@ -1,21 +1,15 @@
 
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { obtenerCompras, calcularTotalCompra } from "../tienda/compras";
 
 function useAdminVerBoleta() {
     const { id } = useParams();
-    const [boleta, setBoleta] = useState(null);
 
-    useEffect(() => {
-        const compras = obtenerCompras();
+    const compras = obtenerCompras();
 
-        const compraEncontrada = compras.find(
-            (compra) => String(compra.id) === String(id)
-        );
-
-        setBoleta(compraEncontrada || null);
-    }, [id]);
+    const boleta = compras.find(
+        (compra) => String(compra.id) === String(id)
+    ) || null;
 
     const subtotal = boleta ? calcularTotalCompra(boleta) : 0;
 

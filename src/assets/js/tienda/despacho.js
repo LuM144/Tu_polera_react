@@ -1,5 +1,7 @@
+
 import { guardarJSON, leerJSON } from "./catalogo";
-import { estaEnChile } from "../../../services/googleMaps";
+import { estaEnChile } from "../../../services/geografiaChile";
+import { esDestinoVerificado } from "../../../services/direccionesChile";
 
 const CLAVE_CONFIGURACION = "configuracionDespacho";
 const CLAVE_DESTINO = "destinoDespacho";
@@ -49,8 +51,8 @@ export function cargarConfiguracionDespacho() {
     };
 }
 
-// Revisa la configuración antes de guardarla. Devuelve un texto de error
-// o null si todo está correcto.
+// Revisa la configuración antes de guardarla.
+// Devuelve un texto de error o null si todo está correcto.
 export function validarConfiguracionDespacho(configuracion) {
     if (!configuracion.direccion.trim()) {
         return "Ingresa la dirección del centro de distribución.";
@@ -88,8 +90,8 @@ export function guardarConfiguracionDespacho(configuracion) {
     return guardarJSON(CLAVE_CONFIGURACION, configuracion);
 }
 
-// Fórmula de cálculo (ajustable desde el panel):
-//   precio = precio base + (costo por km × distancia)
+// Fórmula original:
+// precio = precio base + (costo por km × distancia)
 // limitado por la tarifa mínima y máxima, si existen.
 export function calcularPrecioDespacho(distanciaKm, configuracion) {
     let precio =
@@ -108,21 +110,42 @@ export function calcularPrecioDespacho(distanciaKm, configuracion) {
     return Math.round(precio / 10) * 10;
 }
 
-// Destino elegido por el cliente durante la compra.
+// Comprueba si una dirección ingresada manualmente tiene los datos mínimos.
+export function esDireccionManualValida(destino) {
+    return Boolean(
+        destino &&
+        destino.metodoSeleccion === "manual" &&
+        typeof destino.direccion === "string" &&
+        destino.direccion.trim() &&
+        typeof destino.calle === "string" &&
+        destino.calle.trim() &&
+        typeof destino.numero === "string" &&
+        destino.numero.trim() &&
+        typeof destino.comuna === "string" &&
+        destino.comuna.trim() &&
+        typeof destino.region === "string" &&
+        destino.region.trim() &&
+        destino.codigoPais === "CL"
+    );
+}
+
+// Acepta direcciones antiguas que fueron verificadas anteriormente
+// y las nuevas direcciones ingresadas manualmente.
+export function esDestinoDespachoValido(destino) {
+    return (
+        esDestinoVerificado(destino) ||
+        esDireccionManualValida(destino)
+    );
+}
+
+// Recupera el destino guardado si cumple las validaciones.
 export function cargarDestinoDespacho() {
     const destino = leerJSON(CLAVE_DESTINO, null);
 
-    if (
-        destino &&
-        typeof destino.direccion === "string" &&
-        estaEnChile(Number(destino.latitud), Number(destino.longitud))
-    ) {
-        return destino;
-    }
-
-    return null;
+    return esDestinoDespachoValido(destino) ? destino : null;
 }
 
+// Guarda o elimina el destino de despacho.
 export function guardarDestinoDespacho(destino) {
     if (destino === null) {
         localStorage.removeItem(CLAVE_DESTINO);

@@ -6,10 +6,6 @@ import {
     guardarConfiguracionDespacho,
     validarConfiguracionDespacho
 } from "../tienda/despacho";
-import {
-    geocodificarDireccion,
-    mapasConfigurado
-} from "../../../services/googleMaps";
 
 function aFormulario(configuracion) {
     return {
@@ -55,7 +51,6 @@ function useAdminDespacho() {
 
     const [mensaje, setMensaje] = useState("");
     const [tipoMensaje, setTipoMensaje] = useState("info");
-    const [buscando, setBuscando] = useState(false);
 
     function mostrarMensaje(texto, tipo = "info") {
         setMensaje(texto);
@@ -64,32 +59,6 @@ function useAdminDespacho() {
 
     function actualizarCampo(campo, valor) {
         setFormulario(actual => ({ ...actual, [campo]: valor }));
-    }
-
-    // Obtiene latitud y longitud de la dirección escrita usando Geocoding API.
-    async function buscarCoordenadas() {
-        setBuscando(true);
-        mostrarMensaje("");
-
-        try {
-            const resultado = await geocodificarDireccion(formulario.direccion);
-
-            setFormulario(actual => ({
-                ...actual,
-                direccion: resultado.direccion,
-                latitud: String(resultado.latitud),
-                longitud: String(resultado.longitud)
-            }));
-
-            mostrarMensaje(
-                "Ubicación encontrada. Revisa los datos y guarda los cambios.",
-                "success"
-            );
-        } catch (error) {
-            mostrarMensaje(error.message, "danger");
-        } finally {
-            setBuscando(false);
-        }
     }
 
     function guardar(evento) {
@@ -105,7 +74,10 @@ function useAdminDespacho() {
         ];
 
         if (numeros.some(numero => !Number.isFinite(numero))) {
-            mostrarMensaje("Revisa que los campos numéricos sean válidos.", "danger");
+            mostrarMensaje(
+                "Revisa que los campos numéricos sean válidos.",
+                "danger"
+            );
             return;
         }
 
@@ -140,13 +112,10 @@ function useAdminDespacho() {
     return {
         formulario,
         actualizarCampo,
-        buscarCoordenadas,
-        buscando,
         guardar,
         mensaje,
         tipoMensaje,
-        ejemplos,
-        mapasConfigurado: mapasConfigurado()
+        ejemplos
     };
 }
 

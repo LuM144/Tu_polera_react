@@ -1,13 +1,9 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { obtenerCompras, calcularTotalCompra } from "../tienda/compras";
 
 function useAdminReportes() {
-    const [boletas, setBoletas] = useState([]);
-
-    useEffect(() => {
-        setBoletas(obtenerCompras());
-    }, []);
+    const [boletas] = useState(() => obtenerCompras());
 
     const exitosas = boletas.filter(
         (boleta) => boleta.estado === "exitosa"

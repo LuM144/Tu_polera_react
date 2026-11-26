@@ -2,7 +2,7 @@
    CSS DEL PANEL DE ADMINISTRACIÓN
 ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap");
+/* Nunito Sans se carga con @fontsource/nunito-sans desde main.jsx. */
 
 :root {
     --mf-negro: #111111;

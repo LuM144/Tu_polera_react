@@ -1,6 +1,5 @@
 
 import AdminSidebar from "../../components/admin/AdminSidebar";
-import Icono from "../../components/Iconos";
 import useAdminDespacho from "../../assets/js/admin/useAdminDespacho";
 import { formatearPrecio } from "../../assets/js/tienda/catalogo";
 
@@ -8,13 +7,10 @@ function AdminDespacho() {
     const {
         formulario,
         actualizarCampo,
-        buscarCoordenadas,
-        buscando,
         guardar,
         mensaje,
         tipoMensaje,
-        ejemplos,
-        mapasConfigurado
+        ejemplos
     } = useAdminDespacho();
 
     return (
@@ -84,37 +80,22 @@ function AdminDespacho() {
                                             Dirección de origen
                                         </label>
 
-                                        <div className="input-group">
-                                            <input
-                                                id="direccionCentro"
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Calle, número, comuna"
-                                                value={formulario.direccion}
-                                                onChange={evento =>
-                                                    actualizarCampo("direccion", evento.target.value)
-                                                }
-                                                required
-                                            />
+                                        <input
+                                            id="direccionCentro"
+                                            type="text"
+                                            className="form-control"
+                                            placeholder="Calle, número, comuna"
+                                            value={formulario.direccion}
+                                            onChange={evento =>
+                                                actualizarCampo("direccion", evento.target.value)
+                                            }
+                                            required
+                                        />
 
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark"
-                                                onClick={buscarCoordenadas}
-                                                disabled={buscando || !mapasConfigurado}
-                                            >
-                                                <Icono nombre="mapa" tamano={16} />
-                                                {buscando ? "Buscando..." : "Obtener coordenadas"}
-                                            </button>
-                                        </div>
-
-                                        {!mapasConfigurado && (
-                                            <p className="admin-ayuda mt-2 mb-0">
-                                                La búsqueda automática requiere configurar
-                                                VITE_GOOGLE_MAPS_API_KEY (ver README). Mientras
-                                                tanto puedes ingresar la latitud y longitud manualmente.
-                                            </p>
-                                        )}
+                                        <p className="admin-ayuda mt-2 mb-0">
+                                            Ingresa manualmente la dirección del centro
+                                            de distribución.
+                                        </p>
                                     </div>
 
                                     <div className="row g-3 mb-3">
@@ -154,6 +135,11 @@ function AdminDespacho() {
                                             />
                                         </div>
                                     </div>
+
+                                    <p className="admin-ayuda mb-4">
+                                        Las coordenadas deben corresponder a la ubicación
+                                        real de la bodega y estar dentro de Chile.
+                                    </p>
 
                                     <div className="form-check form-switch mb-4">
                                         <input

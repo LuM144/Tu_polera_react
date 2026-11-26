@@ -1,3 +1,4 @@
+
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
     cargarCategorias,
@@ -9,7 +10,10 @@ import {
     revisarStockCarrito
 } from './catalogo';
 import { calcularPrecioDespacho, configuracionDespachoInicial } from './despacho';
-import { calcularDistanciaLineaRecta, estaEnChile } from '../../../services/googleMaps';
+import {
+    calcularDistanciaLineaRecta,
+    estaEnChile
+} from '../../../services/geografiaChile';
 
 beforeEach(() => localStorage.clear());
 

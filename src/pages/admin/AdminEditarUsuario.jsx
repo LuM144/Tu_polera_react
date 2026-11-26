@@ -5,7 +5,6 @@ import useAdminEditarUsuario from "../../assets/js/admin/useAdminEditarUsuario";
 
 function AdminEditarUsuario() {
     const {
-        id,
         usuarioExistente,
         esEdicion,
         formulario,

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 import Icono from "../../components/Iconos";
+import SelectorDireccion from "../../components/tienda/SelectorDireccion";
 import useCarrito from "../../assets/js/tienda/useCarrito";
 import { obtenerRutaImagen } from "../../assets/js/tienda/catalogo";
 
@@ -21,17 +22,13 @@ function Carrito() {
         total,
         formatearPrecio,
         obtenerPrecioFinal,
-        direccionTexto,
-        setDireccionTexto,
         destino,
         calculoDespacho,
         calculandoDespacho,
         errorDespacho,
-        buscarDireccion,
-        usarTarifaBase,
+        seleccionarDestino,
         cambiarDireccion,
         configuracionDespacho,
-        mapasConfigurado,
         sumarCantidad,
         restarCantidad,
         eliminarProducto,
@@ -210,89 +207,49 @@ function Carrito() {
                                 Despacho
                             </h2>
 
-                            {!destino ? (
-                                <form onSubmit={buscarDireccion}>
-                                    <label
-                                        htmlFor="direccionDespacho"
-                                        className="form-label"
-                                    >
-                                        Dirección de despacho (Chile)
-                                    </label>
+                            <SelectorDireccion
+                                destino={destino}
+                                alSeleccionar={seleccionarDestino}
+                                alLimpiar={cambiarDireccion}
+                            />
 
-                                    <input
-                                        id="direccionDespacho"
-                                        type="text"
-                                        className="form-control mb-2"
-                                        placeholder="Calle, número, comuna"
-                                        value={direccionTexto}
-                                        onChange={evento =>
-                                            setDireccionTexto(evento.target.value)
-                                        }
-                                        required
-                                    />
+                            {errorDespacho && (
+                                <p className="text-danger mt-2 mb-0" role="alert">
+                                    {errorDespacho}
+                                </p>
+                            )}
 
-                                    {mapasConfigurado ? (
-                                        <button
-                                            type="submit"
-                                            className="btn btn-outline-dark w-100"
-                                            disabled={calculandoDespacho}
-                                        >
-                                            {calculandoDespacho
-                                                ? "Buscando..."
-                                                : "Buscar dirección y calcular"}
-                                        </button>
-                                    ) : (
+                            {destino && (
+                                <div className="despacho-estimacion">
+                                    <h3>
+                                        Estimación de despacho (modo de prueba)
+                                    </h3>
+
+                                    {calculandoDespacho && (
+                                        <p className="carrito-nota" role="status">
+                                            Calculando estimación...
+                                        </p>
+                                    )}
+
+                                    {calculoDespacho && (
                                         <>
-                                            <p className="carrito-nota">
-                                                El servicio de mapas aún no está
-                                                configurado, por lo que no podemos
-                                                medir la distancia. Se aplicará la
-                                                tarifa base de despacho.
+                                            <p className="despacho-estimacion-valor">
+                                                {formatearPrecio(calculoDespacho.precio)}
                                             </p>
 
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark w-100"
-                                                onClick={usarTarifaBase}
-                                            >
-                                                Usar tarifa base
-                                            </button>
+                                            <p className="carrito-nota">
+                                                {calculoDespacho.tipo === "ruta" &&
+                                                    `Distancia por ruta desde nuestra bodega: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km.`}
+
+                                                {calculoDespacho.tipo === "linea_recta" &&
+                                                    `Distancia estimada en línea recta: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km (no se pudo calcular la ruta).`}
+                                            </p>
                                         </>
                                     )}
 
-                                    {errorDespacho && (
-                                        <p className="text-danger mt-2 mb-0" role="alert">
-                                            {errorDespacho}
-                                        </p>
-                                    )}
-                                </form>
-                            ) : (
-                                <div>
-                                    <p className="despacho-direccion">
-                                        <Icono nombre="mapa" tamano={16} />
-                                        {destino.direccion}
+                                    <p className="despacho-aviso-prueba">
+                                        Seleccione una dirección en Chile para obtener una estimación de despacho.
                                     </p>
-
-                                    {calculoDespacho && (
-                                        <p className="carrito-nota">
-                                            {calculoDespacho.tipo === "ruta" &&
-                                                `Distancia por ruta desde nuestra bodega: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km.`}
-
-                                            {calculoDespacho.tipo === "linea_recta" &&
-                                                `Distancia estimada en línea recta: ${calculoDespacho.distanciaKm.toLocaleString("es-CL", { maximumFractionDigits: 1 })} km (no se pudo calcular la ruta).`}
-
-                                            {calculoDespacho.tipo === "tarifa_base" &&
-                                                "Se aplica la tarifa base de despacho."}
-                                        </p>
-                                    )}
-
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-dark btn-sm"
-                                        onClick={cambiarDireccion}
-                                    >
-                                        Cambiar dirección
-                                    </button>
                                 </div>
                             )}
 
@@ -314,18 +271,18 @@ function Carrito() {
                             </div>
 
                             <div className="carrito-linea-resumen">
-                                <span>Envío</span>
+                                <span>Estimación de despacho (modo de prueba)</span>
                                 <span>
                                     {calculoDespacho
                                         ? formatearPrecio(envio)
-                                        : "Ingresa tu dirección"}
+                                        : "Selecciona tu dirección"}
                                 </span>
                             </div>
 
                             <hr />
 
                             <div className="carrito-linea-resumen carrito-total">
-                                <strong>Total</strong>
+                                <strong>Total (con estimación de prueba)</strong>
                                 <strong>
                                     {formatearPrecio(total)}
                                 </strong>
@@ -334,7 +291,11 @@ function Carrito() {
                             <button
                                 type="button"
                                 className="btn btn-tienda w-100 mt-3"
-                                disabled={carrito.length === 0 || !calculoDespacho}
+                                disabled={
+                                    carrito.length === 0 ||
+                                    !calculoDespacho ||
+                                    calculandoDespacho
+                                }
                                 onClick={() => {
                                     setMostrarPago(!mostrarPago);
                                 }}

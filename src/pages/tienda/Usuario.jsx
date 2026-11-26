@@ -9,15 +9,11 @@ import Icono from "../../components/Iconos";
 function Usuario() {
     const navigate = useNavigate();
 
-    const [usuario, setUsuario] = useState(null);
-
-    // Comprobar si existe una sesión iniciada.
-    useEffect(() => {
+    const [usuario] = useState(() => {
         const usuarioGuardado = localStorage.getItem("usuarioActual");
 
         if (!usuarioGuardado) {
-            navigate("/login", { replace: true });
-            return;
+            return null;
         }
 
         try {
@@ -25,18 +21,22 @@ function Usuario() {
 
             // Comprobar que los datos guardados sean válidos.
             if (!usuarioActual || !usuarioActual.nombre || !usuarioActual.rol) {
-                localStorage.removeItem("usuarioActual");
-                navigate("/login", { replace: true });
-                return;
+                return null;
             }
 
-            setUsuario(usuarioActual);
+            return usuarioActual;
         } catch {
-            // Si los datos están dañados, eliminar la sesión.
+            return null;
+        }
+    });
+
+    // Comprobar si existe una sesión iniciada.
+    useEffect(() => {
+        if (!usuario) {
             localStorage.removeItem("usuarioActual");
             navigate("/login", { replace: true });
         }
-    }, [navigate]);
+    }, [usuario, navigate]);
 
     // Cerrar la sesión del usuario.
     function cerrarSesion() {
@@ -81,7 +81,9 @@ function Usuario() {
                     {usuario.rol === "administrador" && (
                         <div className="col-12 col-md-4">
                             <div className="usuario-card">
-                                <div className="usuario-icon"><Icono nombre="ajustes" tamano={30} /></div>
+                                <div className="usuario-icon">
+                                    <Icono nombre="ajustes" tamano={30} />
+                                </div>
 
                                 <h2>
                                     Administración
@@ -104,7 +106,9 @@ function Usuario() {
 
                     <div className="col-12 col-md-4">
                         <div className="usuario-card">
-                            <div className="usuario-icon"><Icono nombre="bolsa" tamano={30} /></div>
+                            <div className="usuario-icon">
+                                <Icono nombre="bolsa" tamano={30} />
+                            </div>
 
                             <h2>
                                 Productos
@@ -125,7 +129,9 @@ function Usuario() {
 
                     <div className="col-12 col-md-4">
                         <div className="usuario-card">
-                            <div className="usuario-icon"><Icono nombre="recibo" tamano={30} /></div>
+                            <div className="usuario-icon">
+                                <Icono nombre="recibo" tamano={30} />
+                            </div>
 
                             <h2>
                                 Mis compras
@@ -146,7 +152,9 @@ function Usuario() {
 
                     <div className="col-12 col-md-4">
                         <div className="usuario-card">
-                            <div className="usuario-icon"><Icono nombre="carrito" tamano={30} /></div>
+                            <div className="usuario-icon">
+                                <Icono nombre="carrito" tamano={30} />
+                            </div>
 
                             <h2>
                                 Mi carrito

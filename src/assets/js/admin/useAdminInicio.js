@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { UsuariosTest } from "../../../data/usuariosTest";
 import {
     cargarCategorias,
@@ -11,38 +12,33 @@ import {
     calcularTotalCompra
 } from "../tienda/compras";
 
-function useAdminInicio() {
-    const [productos, setProductos] = useState([]);
-    const [usuarios, setUsuarios] = useState([]);
-    const [compras, setCompras] = useState([]);
+function cargarUsuarios() {
+    const usuariosGuardados = localStorage.getItem("usuarios");
 
-    useEffect(() => {
-        // Los productos se cargan con la estructura dinámica actual.
-        setProductos(cargarProductos(cargarCategorias()));
+    if (usuariosGuardados !== null) {
+        try {
+            const datosUsuarios = JSON.parse(usuariosGuardados);
 
-        // Obtener usuarios guardados o utilizar los usuarios de prueba.
-        const usuariosGuardados = localStorage.getItem("usuarios");
-
-        if (usuariosGuardados !== null) {
-            try {
-                const datosUsuarios = JSON.parse(usuariosGuardados);
-
-                setUsuarios(
-                    Array.isArray(datosUsuarios)
-                        ? datosUsuarios
-                        : UsuariosTest
-                );
-            } catch (error) {
-                console.error("Error al obtener los usuarios:", error);
-                setUsuarios(UsuariosTest);
-            }
-        } else {
-            setUsuarios(UsuariosTest);
+            return Array.isArray(datosUsuarios)
+                ? datosUsuarios
+                : UsuariosTest;
+        } catch (error) {
+            console.error("Error al obtener los usuarios:", error);
+            return UsuariosTest;
         }
+    }
 
-        // Obtener todas las compras, exitosas y fallidas.
-        setCompras(obtenerCompras());
-    }, []);
+    return UsuariosTest;
+}
+
+function useAdminInicio() {
+    const [productos] = useState(() =>
+        cargarProductos(cargarCategorias())
+    );
+
+    const [usuarios] = useState(() => cargarUsuarios());
+
+    const [compras] = useState(() => obtenerCompras());
 
     // Variantes de talla agotadas o con stock bajo.
     const productosCriticos = obtenerProductosCriticos(

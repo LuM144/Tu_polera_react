@@ -78,84 +78,82 @@ function obtenerId(producto) {
     return producto?.id ?? producto;
 }
 
-export default function useIndex() {
-    const [productos, setProductos] = useState([]);
-    const [productosDestacados, setProductosDestacados] = useState([]);
-    const [categorias, setCategorias] = useState([]);
-    const [usuarioActual, setUsuarioActual] = useState(null);
+// Carga los datos iniciales de la página.
+function cargarDatosIniciales() {
+    const usuarios = leerLocalStorage("usuarios", UsuariosTest);
 
-    useEffect(() => {
-        guardarSiNoExiste("usuarios", UsuariosTest);
+    // Las categorías y los productos se cargan (y migran si es necesario)
+    // desde el módulo compartido del catálogo.
+    const categoriasNormalizadas = cargarCategorias();
+    const productosGuardados = cargarProductos(categoriasNormalizadas);
 
-        const usuarios = leerLocalStorage("usuarios", UsuariosTest);
+    const destacadosGuardados = leerLocalStorage(
+        "productosDestacados",
+        []
+    );
 
-        // Las categorías y los productos se cargan (y migran si es necesario)
-        // desde el módulo compartido del catálogo.
-        const categoriasNormalizadas = cargarCategorias();
-        const productosGuardados = cargarProductos(categoriasNormalizadas);
+    const sesionGuardada = leerLocalStorage("usuarioActual", null);
 
-        const destacadosGuardados = leerLocalStorage(
-            "productosDestacados",
-            []
-        );
+    let usuario = sesionGuardada;
 
-        const sesionGuardada = leerLocalStorage("usuarioActual", null);
-
-        let usuario = sesionGuardada;
-
-        if (typeof usuario === "string") {
-            try {
-                usuario = JSON.parse(usuario);
-            } catch {
-                usuario =
-                    usuarios.find(
-                        item => item.correo === sesionGuardada
-                    ) ?? null;
-            }
+    if (typeof usuario === "string") {
+        try {
+            usuario = JSON.parse(usuario);
+        } catch {
+            usuario =
+                usuarios.find(
+                    item => item.correo === sesionGuardada
+                ) ?? null;
         }
+    }
 
-        setUsuarioActual(usuario);
+    let destacados;
 
-        setProductos(
-            Array.isArray(productosGuardados)
-                ? productosGuardados
-                : []
-        );
-
-        setCategorias(categoriasNormalizadas);
-
-        let destacados = [];
-
+    if (
+        Array.isArray(destacadosGuardados) &&
+        destacadosGuardados.length > 0
+    ) {
         if (
-            Array.isArray(destacadosGuardados) &&
-            destacadosGuardados.length > 0
+            typeof destacadosGuardados[0] === "object" &&
+            destacadosGuardados[0] !== null
         ) {
-            if (
-                typeof destacadosGuardados[0] === "object" &&
-                destacadosGuardados[0] !== null
-            ) {
-                destacados = destacadosGuardados.map(destacado =>
+            destacados = destacadosGuardados.map(destacado =>
+                productosGuardados.find(
+                    producto =>
+                        String(producto.id) === String(destacado.id)
+                ) ?? destacado
+            );
+        } else {
+            destacados = destacadosGuardados
+                .map(id =>
                     productosGuardados.find(
                         producto =>
-                            String(producto.id) === String(destacado.id)
-                    ) ?? destacado
-                );
-            } else {
-                destacados = destacadosGuardados
-                    .map(id =>
-                        productosGuardados.find(
-                            producto =>
-                                String(producto.id) ===
-                                String(obtenerId(id))
-                        )
+                            String(producto.id) ===
+                            String(obtenerId(id))
                     )
-                    .filter(Boolean);
-            }
-        } else {
-            destacados = productosGuardados.slice(0, 6);
+                )
+                .filter(Boolean);
         }
+    } else {
+        destacados = productosGuardados.slice(0, 6);
+    }
 
-        setProductosDestacados(destacados.slice(0, 6));
+    return {
+        productos: Array.isArray(productosGuardados)
+            ? productosGuardados
+            : [],
+        productosDestacados: destacados.slice(0, 6),
+        categorias: categoriasNormalizadas,
+        usuarioActual: usuario
+    };
+}
+
+export default function useIndex() {
+    const [datosIniciales] = useState(() => cargarDatosIniciales());
+
+    // Crear los usuarios de prueba solamente si todavía no existen.
+    useEffect(() => {
+        guardarSiNoExiste("usuarios", UsuariosTest);
     }, []);
 
     function obtenerPrecioFinal(producto) {
@@ -176,12 +174,12 @@ export default function useIndex() {
     }
 
     return {
-        productos,
-        productosDestacados,
-        categorias,
+        productos: datosIniciales.productos,
+        productosDestacados: datosIniciales.productosDestacados,
+        categorias: datosIniciales.categorias,
         bannersIniciales,
         noticiasIniciales,
-        usuarioActual,
+        usuarioActual: datosIniciales.usuarioActual,
         obtenerPrecioFinal,
         formatearPrecio,
         obtenerRutaImagen

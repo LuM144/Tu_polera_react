@@ -5,12 +5,11 @@ import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 
 function Home() {
-    const {
+        const {
         productosDestacados,
         categorias,
         bannersIniciales,
         noticiasIniciales,
-        usuarioActual,
         obtenerPrecioFinal,
         formatearPrecio,
         obtenerRutaImagen

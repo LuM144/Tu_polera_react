@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { calcularTotalCompra, obtenerCompras } from "./compras";
 
@@ -8,9 +8,19 @@ function obtenerIdentificador(usuario) {
     return usuario.id ?? usuario.correo?.toLowerCase();
 }
 
+function obtenerUsuarioActual() {
+    try {
+        return JSON.parse(localStorage.getItem("usuarioActual") || "null");
+    } catch {
+        return null;
+    }
+}
+
 export function formatearFecha(fecha) {
     const objeto = new Date(
-        /^\d{4}-\d{2}-\d{2}$/.test(String(fecha)) ? `${fecha}T00:00:00` : fecha
+        /^\d{4}-\d{2}-\d{2}$/.test(String(fecha))
+            ? `${fecha}T00:00:00`
+            : fecha
     );
 
     if (Number.isNaN(objeto.getTime())) {
@@ -34,40 +44,35 @@ function useMisCompras() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const [usuario, setUsuario] = useState(null);
-    const [compras, setCompras] = useState([]);
+    // Se obtiene la sesión directamente desde localStorage.
+    const usuario = obtenerUsuarioActual();
 
-    useEffect(() => {
-        let usuarioActual;
+    const sesionValida =
+        usuario &&
+        usuario.nombre &&
+        usuario.rol;
 
-        try {
-            usuarioActual = JSON.parse(
-                localStorage.getItem("usuarioActual") || "null"
-            );
-        } catch {
-            usuarioActual = null;
-        }
+    // Si no existe una sesión válida, no se muestran compras.
+    const compras = sesionValida
+        ? obtenerCompras()
+            .filter(compra => {
+                const identificador = obtenerIdentificador(usuario);
 
-        if (!usuarioActual || !usuarioActual.nombre || !usuarioActual.rol) {
-            navigate("/login", { replace: true });
-            return;
-        }
-
-        const identificador = obtenerIdentificador(usuarioActual);
-
-        // Solo se cargan las compras que pertenecen al usuario con sesión.
-        const propias = obtenerCompras()
-            .filter(
-                compra =>
+                return (
                     compra.usuarioId !== undefined &&
                     compra.usuarioId !== null &&
                     String(compra.usuarioId) === String(identificador)
-            )
-            .sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                );
+            })
+            .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+        : [];
 
-        setUsuario(usuarioActual);
-        setCompras(propias);
-    }, [navigate]);
+    // El efecto solamente se encarga de redireccionar.
+    useEffect(() => {
+        if (!sesionValida) {
+            navigate("/login", { replace: true });
+        }
+    }, [sesionValida, navigate]);
 
     // El detalle solo se encuentra entre las compras del propio usuario.
     const compraSeleccionada = id
@@ -75,7 +80,7 @@ function useMisCompras() {
         : null;
 
     return {
-        usuario,
+        usuario: sesionValida ? usuario : null,
         compras,
         compraSeleccionada,
         id,

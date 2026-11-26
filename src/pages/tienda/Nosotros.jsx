@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import NavbarTienda from "../../components/tienda/NavbarTienda";
 import FooterTienda from "../../components/tienda/FooterTienda";
 import Icono from "../../components/Iconos";

@@ -1,0 +1,280 @@
+/* =====================================================================
+   Ficha de tu prenda (detalle de compra)
+   Paleta: negro, rojo y beige. Tipografía: Nunito Sans.
+   Los estilos de .ficha-prenda no dependen de .pagina-tienda porque la
+   misma ficha se usa al imprimir, fuera de la página.
+   ===================================================================== */
+
+.fichas-pedido {
+    margin: 28px 0 20px;
+}
+
+.fichas-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.ficha-bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Solo este contenedor se captura como imagen: no lleva relleno propio. */
+.ficha-captura {
+    background: #ffffff;
+}
+
+.ficha-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ficha-prenda {
+    width: 100%;
+    max-width: 520px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: var(--tp-beige, #f3f2ee);
+    color: #3d3d3d;
+    border: 2px solid var(--tp-negro, #111111);
+    border-radius: 14px;
+    font-family: "Nunito Sans", sans-serif;
+    line-height: 1.4;
+}
+
+.ficha-prenda *,
+.ficha-prenda *::before,
+.ficha-prenda *::after {
+    box-sizing: border-box;
+}
+
+.ficha-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--tp-negro, #111111);
+    border-bottom: 4px solid var(--tp-rojo, #e53637);
+    color: #ffffff;
+}
+
+.ficha-marca {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.ficha-subtitulo {
+    color: var(--tp-beige, #f3f2ee);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ficha-cuerpo {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 18px;
+}
+
+.ficha-imagen {
+    flex: 0 0 120px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #d9d6cc;
+    border-radius: 10px;
+}
+
+.ficha-imagen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ficha-identificacion {
+    min-width: 0;
+}
+
+.ficha-categoria {
+    display: inline-block;
+    color: var(--tp-rojo, #e53637);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ficha-nombre {
+    margin: 2px 0 4px;
+    color: var(--tp-negro, #111111);
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.ficha-codigo {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 12px;
+}
+
+.ficha-aviso {
+    margin: 0 18px 14px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border-left: 4px solid var(--tp-rojo, #e53637);
+    border-radius: 0 8px 8px 0;
+    color: #3d3d3d;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ficha-seccion {
+    padding: 0 18px 16px;
+}
+
+.ficha-seccion h4 {
+    margin: 0 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--tp-negro, #111111);
+    color: var(--tp-negro, #111111);
+    font-family: "Nunito Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ficha-datos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+    margin: 0;
+}
+
+.ficha-datos dt {
+    color: #6b6b6b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.ficha-datos dd {
+    margin: 0;
+    color: var(--tp-negro, #111111);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.ficha-medidas {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ficha-medidas th,
+.ficha-medidas td {
+    padding: 6px 0;
+    border-bottom: 1px solid #d9d6cc;
+    font-size: 14px;
+}
+
+.ficha-medidas th {
+    color: #3d3d3d;
+    font-weight: 600;
+    text-align: left;
+}
+
+.ficha-medidas td {
+    color: var(--tp-negro, #111111);
+    font-weight: 800;
+    text-align: right;
+}
+
+.ficha-sin-medidas {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 13px;
+}
+
+.ficha-pedido {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px 16px;
+    padding: 12px 18px;
+    background: var(--tp-negro, #111111);
+    color: var(--tp-beige, #f3f2ee);
+}
+
+.ficha-pedido span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.75;
+    text-transform: uppercase;
+}
+
+.ficha-pedido strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+@media (max-width: 480px) {
+    .fichas-lista {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ficha-cuerpo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ---------- Impresión: solo se imprime la ficha activa ---------- */
+
+/* El contenedor de impresión no se ve en pantalla. */
+.ficha-impresion-raiz {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+
+    /* Se oculta todo el documento excepto la copia de la ficha activa:
+       navegación, botones, menús y las demás fichas. */
+    body.imprimiendo-ficha > *:not(.ficha-impresion-raiz) {
+        display: none !important;
+    }
+
+    body.imprimiendo-ficha .ficha-impresion-raiz {
+        display: block !important;
+    }
+
+    body.imprimiendo-ficha {
+        background: #ffffff !important;
+    }
+
+    .ficha-impresion-raiz .ficha-prenda {
+        max-width: 100%;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
