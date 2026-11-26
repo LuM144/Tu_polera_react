@@ -1,8 +1,8 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-    cargarCategorias,
-    cargarProductos,
+    normalizarCategoria,
+    migrarProducto,
     crearSlug,
     formatearPrecio,
     leerJSON,
@@ -11,6 +11,7 @@ import {
     obtenerRutaImagen,
     obtenerStockTalla
 } from "./catalogo";
+import { cargarCatalogoApi } from "../../../services/catalogoApi";
 
 export { crearSlug };
 
@@ -20,8 +21,51 @@ function leerLista(clave) {
 }
 
 export default function useProductos() {
-    const [categorias] = useState(cargarCategorias);
-    const [productos] = useState(() => cargarProductos(categorias));
+    const [categorias, setCategorias] = useState([]);
+    const [productos, setProductos] = useState([]);
+    const [cargando, setCargando] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const controlador = new AbortController();
+
+        async function cargarDatos() {
+            try {
+                setCargando(true);
+                setError("");
+
+                const datos = await cargarCatalogoApi(controlador.signal);
+
+                const categoriasApi = datos.categorias
+                    .filter(categoria => categoria.activa !== false)
+                    .map((categoria, indice) =>
+                        normalizarCategoria(categoria, indice)
+                    );
+
+                const productosApi = datos.productos
+                    .filter(producto => producto.activo !== false)
+                    .map(producto =>
+                        migrarProducto(producto, categoriasApi)
+                    );
+
+                setCategorias(categoriasApi);
+                setProductos(productosApi);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    console.error("Error al cargar el catálogo:", error);
+                    setError(error.message || "No se pudo cargar el catálogo.");
+                }
+            } finally {
+                if (!controlador.signal.aborted) {
+                    setCargando(false);
+                }
+            }
+        }
+
+        cargarDatos();
+
+        return () => controlador.abort();
+    }, []);
 
     function obtenerCategoria(producto) {
         return categorias.find(
@@ -93,6 +137,8 @@ export default function useProductos() {
     return {
         productos,
         categorias,
+        cargando,
+        error,
         obtenerCategoria,
         obtenerPrecioFinal,
         formatearPrecio,

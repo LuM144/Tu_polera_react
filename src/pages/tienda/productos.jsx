@@ -14,6 +14,8 @@ function Productos() {
     const {
         productos,
         categorias,
+        cargando,
+        error,
         obtenerCategoria,
         obtenerPrecioFinal,
         formatearPrecio,
@@ -55,7 +57,8 @@ function Productos() {
         return productos.filter((producto) => {
             const categoriaProducto = crearSlug(
                 categorias.find(
-                    categoria => String(categoria.id) === String(producto.categoriaId)
+                    categoria =>
+                        String(categoria.id) === String(producto.categoriaId)
                 )?.nombre || ""
             );
 
@@ -156,6 +159,7 @@ function Productos() {
                                 onChange={(evento) =>
                                     setFiltroTipo(evento.target.value)
                                 }
+                                disabled={cargando || Boolean(error)}
                             >
                                 <option value="todos">
                                     Todas las categorías
@@ -188,6 +192,7 @@ function Productos() {
                                 onChange={(evento) =>
                                     setFiltroColor(evento.target.value)
                                 }
+                                disabled={cargando || Boolean(error)}
                             >
                                 <option value="todos">
                                     Todos los colores
@@ -218,6 +223,7 @@ function Productos() {
                                 onChange={(evento) =>
                                     setFiltroDescuento(evento.target.value)
                                 }
+                                disabled={cargando || Boolean(error)}
                             >
                                 <option value="todos">
                                     Todos los descuentos
@@ -249,12 +255,47 @@ function Productos() {
                         </h2>
 
                         <span className="text-muted">
-                            {productosFiltrados.length} producto(s)
+                            {cargando
+                                ? "Cargando..."
+                                : error
+                                    ? "No disponible"
+                                    : `${productosFiltrados.length} producto(s)`
+                            }
                         </span>
                     </div>
 
                     {/* LISTADO DE PRODUCTOS */}
-                    {productosFiltrados.length === 0 ? (
+                    {cargando ? (
+                        <div className="text-center py-5">
+                            <div
+                                className="spinner-border"
+                                role="status"
+                            >
+                                <span className="visually-hidden">
+                                    Cargando...
+                                </span>
+                            </div>
+
+                            <p className="text-muted mt-3">
+                                Cargando productos desde el servidor...
+                            </p>
+                        </div>
+                    ) : error ? (
+                        <div className="text-center py-5">
+                            <h3 className="h5">
+                                No se pudo cargar el catálogo
+                            </h3>
+
+                            <p className="text-muted">
+                                {error}
+                            </p>
+
+                            <p className="text-muted">
+                                Comprueba que el backend esté iniciado
+                                e inténtalo nuevamente.
+                            </p>
+                        </div>
+                    ) : productosFiltrados.length === 0 ? (
                         <div className="text-center py-5">
                             <h3 className="h5">
                                 No hay productos disponibles
